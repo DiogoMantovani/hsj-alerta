@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 REQUIRED_IDS = {
     "hero","levelNum","levelLabel","levelReason","updatedAt","nextAt",
     "geoCard","hidroCard","inmetCard","defesaCard","defesaConnection",
-    "dcStage","dcSourceStatus","dcBasis","dcOfficialUpdated","dcHstImpact","dcHstImpactDetail",
+    "dcStage","dcSourceStatus","dcBasis","dcOfficialUpdated","dcHsjImpact","dcHsjImpactDetail",
     "dcSignalTitle","dcSignalMeta","dcSignalLink","dcLatestTitle","dcLatestDate","dcLatestLink",
     "dcEmergency","dcSms","dcHomeLink","dcBulletinLink","dcWhatsappLink","dcRouteSummary","dcRouteStatus","dcCacheStatus","dcCacheMeta","dcHistoryBody","dcHistoryCount",
     "pluvioBody","pluvioHidden","bingenHistoryBody","bingenHistoryStatus","bingenHistoryLast","bingenHistory1h","bingenHistory24h","bingenHistoryDistance",
@@ -57,8 +57,6 @@ if not (status.get("pluviometers") or {}).get("nearest_to_hsj"):
 reference=(status.get("pluviometers") or {}).get("nearest_to_hsj") or {}
 if not reference.get("name"):
     raise SystemExit("Estação pluviométrica de referência não identificada")
-if reference.get("distance_to_hsj_km") is None:
-    raise SystemExit("Estação pluviométrica de referência sem distância calculada para o HSJ")
 
 history=load_json("data/history.json")
 snaps=history.get("snapshots",[])
