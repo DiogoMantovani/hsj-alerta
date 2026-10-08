@@ -894,7 +894,7 @@ def fetch_defesa_civil(previous):
             ),
         }
 
-        if not cache_ok:
+        if not cache_index_items:
             try:
                 index_response=requests.get(
                     DEFESA_CIVIL_NEWS_INDEX,
@@ -962,14 +962,16 @@ def fetch_defesa_civil(previous):
                         "url":index_response.url,
                         "items":0,
                     }
-                    cache_result["message"]="Índice RSS respondeu, mas sem publicação relevante identificada nesta coleta."
+                    if not cache_ok:
+                        cache_result["message"]="Índice RSS respondeu, mas sem publicação relevante identificada nesta coleta."
             except Exception as exc:
                 cache_result["routes"]["news_index"]={
                     "status":"unavailable",
                     "url":DEFESA_CIVIL_NEWS_INDEX,
                     "error":exc.__class__.__name__,
                 }
-                cache_result["message"]="Caches intermediários indisponíveis nesta coleta."
+                if not cache_ok:
+                    cache_result["message"]="Caches intermediários indisponíveis nesta coleta."
 
     def canonical_article_url(href):
         href=str(href or "").strip()
