@@ -1031,7 +1031,7 @@ footer{
 <p>O HSJ Alerta não aciona automaticamente o Comitê apenas pela cor do nível. Nos níveis elevados, deve orientar a avaliação dos critérios institucionais. O acionamento ocorre conforme o Regimento vigente quando houver impacto relevante, necessidade de decisões extraordinárias, recursos adicionais, comprometimento de serviço crítico ou demais critérios aplicáveis.</p>
 
 <h3>7. Indisponibilidade e defasagem de fonte</h3>
-<p>Ausência de dados não significa ausência de risco. Uma fonte realmente indisponível ou não confirmada continua bloqueando rebaixamentos indevidos. Já uma fonte acessível, porém sem atualização dentro de sua janela de validade, deixa de congelar o nível indefinidamente quando existem evidências independentes e consecutivas de melhora. No risco hidrológico, o Estação de referência funciona apenas como evidência local de normalização e não substitui a classificação oficial do CEMADEN.</p>
+<p>Ausência de dados não significa ausência de risco. Uma fonte realmente indisponível ou não confirmada continua bloqueando rebaixamentos indevidos. Já uma fonte acessível, porém sem atualização dentro de sua janela de validade, deixa de congelar o nível indefinidamente quando existem evidências independentes e consecutivas de melhora. No risco hidrológico, a estação de referência funciona apenas como evidência local de normalização e não substitui a classificação oficial do CEMADEN.</p>
 
 <h3>8. Registros, revisão e governança</h3>
 <p>Históricos, alterações de nível, avisos enviados e decisões relevantes devem permanecer rastreáveis. Esta lógica deve ser revisada anualmente ou sempre que houver mudança relevante em fontes, critérios, infraestrutura ou documentos institucionais. O Docnix permanece como repositório oficial dos documentos controlados.</p>
@@ -2053,7 +2053,7 @@ function bingenDayKey(value){
   if(isNaN(d)) return raw;
   return d.toLocaleDateString('en-CA',{timeZone:'America/Sao_Paulo'});
 }
-function groupestação de referênciaDaily(snaps){
+function groupReferenceStationDaily(snaps){
   const groups=new Map();
   snaps.forEach(s=>{
     const b=s?.pluviometers?.bingen;
@@ -2066,12 +2066,12 @@ function groupestação de referênciaDaily(snaps){
   });
   return [...groups.values()].sort((a,b)=>String(b._day||'').localeCompare(String(a._day||'')));
 }
-function renderestação de referênciaHistory(){
-  const rows=groupestação de referênciaDaily(bingenHistorySnapshots).slice(0,90);
+function renderReferenceStationHistory(){
+  const rows=groupReferenceStationDaily(bingenHistorySnapshots).slice(0,90);
   const body=document.getElementById('bingenHistoryBody');
   const current=rows[0]||null;
   if(!rows.length){
-    body.innerHTML='<tr><td colspan="10">O histórico começará a ser preenchido a partir da primeira coleta válida do Estação de referência.</td></tr>';
+    body.innerHTML='<tr><td colspan="10">O histórico começará a ser preenchido a partir da primeira coleta válida da estação de referência.</td></tr>';
     document.getElementById('bingenHistoryStatus').textContent='AGUARDANDO DADOS';
     document.getElementById('bingenHistoryLast').textContent='—';
     document.getElementById('bingenHistory1h').textContent='—';
@@ -2102,16 +2102,16 @@ function renderestação de referênciaHistory(){
     '</tr>';
   }).join('');
 }
-async function loadestação de referênciaHistory(){
+async function loadReferenceStationHistory(){
   try{
     const r=await fetch('data/history.json?ts='+Date.now(),{cache:'no-store'});
     if(!r.ok) throw new Error('HTTP '+r.status);
     const data=await r.json();
     bingenHistorySnapshots=Array.isArray(data.snapshots)?data.snapshots:[];
-    renderestação de referênciaHistory();
+    renderReferenceStationHistory();
   }catch(err){
     document.getElementById('bingenHistoryStatus').textContent='INDISPONÍVEL';
-    document.getElementById('bingenHistoryBody').innerHTML='<tr><td colspan="9">Histórico estação de referência indisponível nesta consulta.</td></tr>';
+    document.getElementById('bingenHistoryBody').innerHTML='<tr><td colspan="9">Histórico da estação de referência indisponível nesta consulta.</td></tr>';
   }
 }
 
@@ -2358,11 +2358,11 @@ document.getElementById('mapRadiusToggle').onclick=()=>toggleMapSupport('radius'
 renderActions(1);
 loadOfficialData();
 loadClimateHistory();
-loadestação de referênciaHistory();
+loadReferenceStationHistory();
 loadHistory();
 setInterval(loadOfficialData,60000);
 setInterval(loadClimateHistory,15*60000);
-setInterval(loadestação de referênciaHistory,15*60000);
+setInterval(loadReferenceStationHistory,15*60000);
 setInterval(loadHistory,15*60000);
 </script>
 </body>
