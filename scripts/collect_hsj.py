@@ -24,15 +24,16 @@ HISTORY_URL = "https://diogomantovani.github.io/hsj-alerta/data/history.json"
 
 CEMADEN_BASE = "https://painelcemadenrj.defesacivil.rj.gov.br/monitoramento/v2/municipio/"
 CEMADEN_PLUVIO = "https://resources.cemaden.gov.br/graficos/interativo/getJson2.php?uf=RJ"
+CEMADEN_COORDS_REGISTRY = "https://observatorio.infraestrutura.mg.gov.br/server/rest/services/00_PUBLICACOES/cemaden_estacoes_pluviometricas/FeatureServer/1/query"
 INMET_WEATHER = "https://apitempo.inmet.gov.br/estacao/{start}/{end}/A618"
 INMET_ALERTS = "https://apiprevmet3.inmet.gov.br/avisos/ativos"
 INMET_FORECAST = "https://apiprevmet3.inmet.gov.br/previsao/3305802"
-DEFESA_CIVIL_HOME = "https://teresopolis.rj.gov.br/secretarias/defesa-civil"
-DEFESA_CIVIL_TAG = "https://teresopolis.rj.gov.br/secretarias/defesa-civil"
-DEFESA_CIVIL_BOLETIM = "https://teresopolis.rj.gov.br/secretarias/defesa-civil"
-DEFESA_CIVIL_METEO_PAGE = "https://teresopolis.rj.gov.br/secretarias/defesa-civil"
-DEFESA_CIVIL_JOURNALISM = "https://teresopolis.rj.gov.br/secretarias/defesa-civil"
-DEFESA_CIVIL_RSS = DEFESA_CIVIL_JOURNALISM + "?format=feed&type=rss"
+DEFESA_CIVIL_HOME = "https://www.teresopolis.rj.gov.br/secretarias/defesa-civil"
+DEFESA_CIVIL_TAG = "https://www.teresopolis.rj.gov.br/noticias/defesa-civil"
+DEFESA_CIVIL_BOLETIM = "https://www.teresopolis.rj.gov.br/noticias/defesa-civil"
+DEFESA_CIVIL_METEO_PAGE = "https://www.teresopolis.rj.gov.br/noticias/defesa-civil"
+DEFESA_CIVIL_JOURNALISM = "https://www.teresopolis.rj.gov.br/noticias/defesa-civil"
+DEFESA_CIVIL_RSS = DEFESA_CIVIL_JOURNALISM
 DEFESA_CIVIL_CACHE_READER = "https://r.jina.ai/"
 DEFESA_CIVIL_NEWS_INDEX = "https://news.google.com/rss/search"
 DEFESA_CIVIL_WHATSAPP = ""
@@ -42,6 +43,8 @@ OPEN_METEO_CURRENT = "https://api.open-meteo.com/v1/forecast"
 RAINVIEWER_MAPS = "https://api.rainviewer.com/public/weather-maps.json"
 ECOVIAS_HOME = "https://www.ecoviasriominas.com.br/"
 ECOVIAS_CONDITIONS = "https://www.ecoviasriominas.com.br/condicoes-da-via"
+AGUAS_IMPERATRIZ_HOME = "https://www.grupoaguasdobrasil.com.br/aguas-da-imperatriz/"
+ENEL_RIO_CHANNELS = "https://www.enel.com.br/pt/Canais.html"
 
 RISK_TO_LEVEL = {"MUITO BAIXO":1,"BAIXO":2,"MODERADO":3,"ALTO":4,"MUITO ALTO":5}
 LEVEL_LABELS = {1:"Vigilância",2:"Observação",3:"Atenção",4:"Alerta",5:"Alerta Máximo"}
@@ -477,6 +480,60 @@ def distance_km(lat1,lon1,lat2,lon2):
 # dentre as estações CEMADEN com coordenadas consolidadas nesta base.
 KNOWN_CEMADEN_COORDS={}
 
+def fetch_cemaden_coordinate_registry():
+    """Return station coordinates from a public government ArcGIS mirror.
+
+    This registry is used only for geolocation/distance. Rainfall values always
+    come from the CEMADEN monitoring endpoint.
+    """
+    try:
+        r=requests.get(
+            CEMADEN_COORDS_REGISTRY,
+            params={
+                "where":"codibge=3305802",
+                "outFields":"idestacao,nomeestacao,latitude,longitude",
+                "returnGeometry":"false",
+                "f":"json",
+            },
+            timeout=12,
+            headers={"User-Agent":"Mozilla/5.0 HSJ-Alerta/1.0","Accept":"application/json"},
+        )
+        r.raise_for_status()
+        data=r.json()
+        features=data.get("features") or []
+        by_id={}
+        by_name={}
+        for feature in features:
+            attrs=(feature or {}).get("attributes") or {}
+            lat=safe_float(attrs.get("latitude"))
+            lon=safe_float(attrs.get("longitude"))
+            if lat is None or lon is None:
+                continue
+            sid=str(attrs.get("idestacao") or "").strip()
+            name=str(attrs.get("nomeestacao") or "").strip()
+            coords=(lat,lon)
+            if sid:
+                by_id[sid]=coords
+            if name:
+                by_name[norm(name)]=coords
+        return {
+            "status":"ok" if (by_id or by_name) else "empty",
+            "by_id":by_id,
+            "by_name":by_name,
+            "count":max(len(by_id),len(by_name)),
+            "url":r.url,
+            "error":None,
+        }
+    except Exception as exc:
+        return {
+            "status":"unavailable",
+            "by_id":{},
+            "by_name":{},
+            "count":0,
+            "url":CEMADEN_COORDS_REGISTRY,
+            "error":str(exc)[:300],
+        }
+
 def fetch_cemaden_pluviometers(previous):
     prev=previous.get("pluviometers") or {}
     now=datetime.now(TZ)
@@ -487,6 +544,7 @@ def fetch_cemaden_pluviometers(previous):
         if not isinstance(data,list):
             raise RuntimeError("Formato inesperado do endpoint público de pluviômetros")
 
+        coord_registry=fetch_cemaden_coordinate_registry()
         stations=[]
         for row in data:
             if not isinstance(row,dict) or str(row.get("codibge"))!="3305802":
@@ -514,10 +572,24 @@ def fetch_cemaden_pluviometers(previous):
                 return safe_float(v) if v not in ("-",None,"") else None
             station_name=row.get("nomeestacao") or "Estação sem nome"
             fallback_coords=KNOWN_CEMADEN_COORDS.get(station_name)
+            registry_coords=(
+                (coord_registry.get("by_id") or {}).get(str(row.get("idestacao") or "").strip())
+                or (coord_registry.get("by_name") or {}).get(norm(station_name))
+            )
             row_lat=safe_float(row.get("latitude"))
             row_lon=safe_float(row.get("longitude"))
-            station_lat=row_lat if row_lat is not None else (fallback_coords[0] if fallback_coords else None)
-            station_lon=row_lon if row_lon is not None else (fallback_coords[1] if fallback_coords else None)
+            station_lat=(
+                row_lat if row_lat is not None
+                else registry_coords[0] if registry_coords
+                else fallback_coords[0] if fallback_coords
+                else None
+            )
+            station_lon=(
+                row_lon if row_lon is not None
+                else registry_coords[1] if registry_coords
+                else fallback_coords[1] if fallback_coords
+                else None
+            )
             stations.append({
                 "id":row.get("idestacao"),
                 "name":station_name,
@@ -566,7 +638,7 @@ def fetch_cemaden_pluviometers(previous):
         return {
             "provider":"CEMADEN",
             "status":"ok" if recent else "stale",
-            "source_note":"Chuvas do Mapa Interativo do CEMADEN; horários em UTC convertidos para Brasília. Coordenadas informadas pelo CEMADEN são usadas para ordenar as estações por distância do HSJ.",
+            "source_note":"Chuvas do Mapa Interativo do CEMADEN; horários em UTC convertidos para Brasília. Um cadastro geográfico público é usado somente para coordenadas e distância ao HSJ.",
             "collected_at":now.isoformat(),
             "url":CEMADEN_PLUVIO,
             "total_stations":len(stations),
@@ -574,11 +646,14 @@ def fetch_cemaden_pluviometers(previous):
             "hidden_stations":len(stations)-len(recent),
             "time_anomaly_stations":len(anomalies),
             "georeferenced_stations":len(georeferenced),
-            "coordinate_source":"coordenadas publicadas pelo endpoint CEMADEN quando disponíveis",
+            "coordinate_source":"CEMADEN quando disponível + cadastro geográfico público governamental para geolocalização",
+            "coordinate_registry_status":coord_registry.get("status"),
+            "coordinate_registry_url":coord_registry.get("url"),
+            "coordinate_registry_error":coord_registry.get("error"),
             "highest_1h":highest("acc1h_mm"),
             "highest_24h":highest("acc24h_mm"),
             "nearest_to_hsj":nearest,
-            "nearest_note":"Estação de referência selecionada entre leituras recentes; a ordenação por distância será refinada com o cadastro geográfico das estações de Teresópolis.",
+            "nearest_note":"Estação de referência selecionada entre leituras recentes e georreferenciadas, pela menor distância em linha reta até o HSJ.",
             "stations":stations,
             "error":None,
         }
@@ -854,10 +929,23 @@ def fetch_defesa_civil(previous):
         elif href.startswith("/"):
             href="https://www.teresopolis.rj.gov.br"+href
         elif not href.startswith("http"):
-            href="https://www.teresopolis.rj.gov.br/pmp/"+href.lstrip("./")
-        if "/noticias/item/" not in href:
+            href="https://www.teresopolis.rj.gov.br/"+href.lstrip("./")
+        low=href.lower()
+        if "teresopolis.rj.gov.br" not in low:
             return None
-        return href
+        landing={
+            DEFESA_CIVIL_HOME.rstrip("/").lower(),
+            DEFESA_CIVIL_TAG.rstrip("/").lower(),
+            DEFESA_CIVIL_JOURNALISM.rstrip("/").lower(),
+        }
+        if href.rstrip("/").lower() in landing:
+            return None
+        if "/noticias/defesa-civil/" in low:
+            return href
+        path=low.split("?",1)[0].rstrip("/").rsplit("/",1)[-1]
+        if "defesa-civil" in path:
+            return href
+        return None
 
     links=[]
     feed_items=[]
@@ -1374,6 +1462,81 @@ def fetch_roads(previous):
         "collected_at":now.isoformat(),
         "message":"Canais oficiais da Ecovias Rio Minas consultados para a BR-116/RJ. Ausência de publicação identificada não equivale a garantia de tráfego livre.",
         "error":"; ".join(errors)[:600] if errors else None,
+    }
+
+def fetch_utilities(previous):
+    """Check official water and energy channels without inferring service continuity."""
+    prev=previous.get("utilities") or {}
+    now=datetime.now(TZ)
+    headers={"User-Agent":"Mozilla/5.0 HSJ-Alerta/1.0","Accept":"text/html,application/xhtml+xml"}
+
+    water_prev=prev.get("water") or {}
+    try:
+        r=requests.get(AGUAS_IMPERATRIZ_HOME,timeout=12,headers=headers)
+        r.raise_for_status()
+        soup=BeautifulSoup(r.text,"html.parser")
+        text_body=re.sub(r"\s+"," ",soup.get_text(" ",strip=True)).strip()
+        upper=norm(text_body)
+        notice=None
+        idx=upper.find("COMUNICADO IMPORTANTE")
+        if idx>=0:
+            raw=text_body[idx:]
+            # Keep a bounded operational excerpt. It is informational only.
+            notice=raw[:900].strip()
+        water={
+            "provider":"Águas da Imperatriz",
+            "status":"ok",
+            "url":AGUAS_IMPERATRIZ_HOME,
+            "operational_notice":notice,
+            "has_operational_notice":bool(notice),
+            "phone":"0800 773 1056",
+            "whatsapp":"(21) 97211-8064",
+            "collected_at":now.isoformat(),
+            "message":"Canal oficial acessível. Comunicados são exibidos como informação operacional e não provam continuidade ou interrupção no HSJ.",
+            "error":None,
+        }
+    except Exception as exc:
+        water=dict(water_prev)
+        water.update({
+            "provider":"Águas da Imperatriz",
+            "status":"unavailable",
+            "url":AGUAS_IMPERATRIZ_HOME,
+            "collected_at":now.isoformat(),
+            "message":"Canal oficial de abastecimento indisponível nesta coleta. Fonte indisponível ≠ ausência de risco.",
+            "error":str(exc)[:300],
+        })
+
+    energy_prev=prev.get("energy") or {}
+    try:
+        r=requests.get(ENEL_RIO_CHANNELS,timeout=12,headers=headers)
+        r.raise_for_status()
+        energy={
+            "provider":"Enel Distribuição Rio",
+            "status":"ok",
+            "url":ENEL_RIO_CHANNELS,
+            "phone":"0800 28 00 120",
+            "whatsapp":"(21) 99601-9608",
+            "collected_at":now.isoformat(),
+            "message":"Canal oficial acessível. A situação específica da unidade consumidora não é pública neste canal e deve ser confirmada pelos canais da Enel quando necessário.",
+            "error":None,
+        }
+    except Exception as exc:
+        energy=dict(energy_prev)
+        energy.update({
+            "provider":"Enel Distribuição Rio",
+            "status":"unavailable",
+            "url":ENEL_RIO_CHANNELS,
+            "collected_at":now.isoformat(),
+            "message":"Canal oficial de energia indisponível nesta coleta. Fonte indisponível ≠ ausência de risco.",
+            "error":str(exc)[:300],
+        })
+
+    states=[water.get("status"),energy.get("status")]
+    return {
+        "status":"ok" if all(x=="ok" for x in states) else ("degraded" if any(x=="ok" for x in states) else "unavailable"),
+        "water":water,
+        "energy":energy,
+        "collected_at":now.isoformat(),
     }
 
 def history_snapshot(payload):
@@ -2259,6 +2422,7 @@ def main():
     inmet=fetch_inmet_alerts(previous)
     defesa=fetch_defesa_civil(previous)
     roads=fetch_roads(previous)
+    utilities=fetch_utilities(previous)
 
     # Only fresh/confirmed official sources may create a new escalation.
     # Stale or unavailable sources can hold a previous level through hysteresis,
@@ -2395,6 +2559,7 @@ def main():
       "pluviometers":pluviometers,
       "forecast":forecast,
       "roads":roads,
+      "utilities":utilities,
       "notifications":{
           "group_operational_email":{
               "channel":"email",
@@ -2437,7 +2602,7 @@ def main():
               ) else "ready_disabled" if os.getenv("HSJ_EMAIL_GRUPO_GERENTES","").strip() else "awaiting_recipient"
           }
       },
-      "integrations":{"cemaden_rj":"active","defesa_civil_teresopolis":defesa.get("status","source_unconfirmed"),"inmet_alerts":"active","inmet_forecast":forecast.get("status","unavailable"),"inmet_weather":weather.get("status","unavailable"),"weather_reference":weather_reference.get("status","source_unconfirmed"),"weather_map":weather_map.get("status","source_unconfirmed"),"radar":(weather_map.get("radar") or {}).get("status","unavailable"),"pluviometers":pluviometers.get("status","unavailable"),"roads":roads.get("status","unavailable"),"utilities":"pending"}
+      "integrations":{"cemaden_rj":"active","defesa_civil_teresopolis":defesa.get("status","source_unconfirmed"),"inmet_alerts":"active","inmet_forecast":forecast.get("status","unavailable"),"inmet_weather":weather.get("status","unavailable"),"weather_reference":weather_reference.get("status","source_unconfirmed"),"weather_map":weather_map.get("status","source_unconfirmed"),"radar":(weather_map.get("radar") or {}).get("status","unavailable"),"pluviometers":pluviometers.get("status","unavailable"),"roads":roads.get("status","unavailable"),"utilities":utilities.get("status","unavailable")}
     }
     with open(OUT,"w",encoding="utf-8") as f: json.dump(payload,f,ensure_ascii=False,indent=2)
     persist_history(payload)
