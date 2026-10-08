@@ -45,6 +45,10 @@ OPEN_METEO_CURRENT = "https://api.open-meteo.com/v1/forecast"
 RAINVIEWER_MAPS = "https://api.rainviewer.com/public/weather-maps.json"
 ECOVIAS_HOME = "https://www.ecoviasriominas.com.br/"
 ECOVIAS_CONDITIONS = "https://www.ecoviasriominas.com.br/condicoes-da-via"
+ECOVIAS_TRAFFIC = "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego"
+ECOVIAS_WORKS = "https://www.ecoviasriominas.com.br/noticias/boletim-de-obras"
+ECOVIAS_CONTACT = "https://www.ecoviasriominas.com.br/atendimento/0800"
+ECOVIAS_CACHE_READER = "https://r.jina.ai/"
 AGUAS_IMPERATRIZ_HOME = "https://www.grupoaguasdobrasil.com.br/aguas-da-imperatriz/"
 ENEL_RIO_CHANNELS = "https://www.enel.com.br/pt/Canais.html"
 
@@ -218,7 +222,7 @@ def fetch_inmet_weather(previous):
                 if not isinstance(row,dict): continue
                 code=norm(row.get("CD_ESTACAO") or row.get("codigo") or row.get("station"))
                 name=norm(row.get("DC_NOME") or row.get("nome") or row.get("station_name"))
-                if code=="A618" or "PICO DO COUTO" in name:
+                if code=="A618" or ("TERESOPOLIS" in name and "PARQUE NACIONAL" in name):
                     valid.append(row)
             # The station-specific endpoint may omit CD_ESTACAO in every row.
             if not valid and "A618" in url and rows:
@@ -234,7 +238,7 @@ def fetch_inmet_weather(previous):
             status="stale" if age is not None and age>6 else "ok"
             return {
               "provider":"INMET",
-              "station":{"code":"A618","name":"Pico do Couto","type":"referência regional"},
+              "station":{"code":"A618","name":"Teresópolis - Parque Nacional","type":"estação automática local"},
               "status":status,
               "observed_at":obs.isoformat() if obs else None,
               "age_hours":age,
@@ -251,7 +255,7 @@ def fetch_inmet_weather(previous):
     fallback=dict(prev)
     fallback.update({
       "provider":"INMET",
-      "station":{"code":"A618","name":"Pico do Couto","type":"referência regional"},
+      "station":{"code":"A618","name":"Teresópolis - Parque Nacional","type":"estação automática local"},
       "status":"unavailable",
       "collected_at":now.isoformat(),
       "url":candidates_urls[0],
@@ -1420,94 +1424,223 @@ def _plain_excerpt(text, limit=460):
     return text[:limit].rsplit(" ",1)[0]+"…"
 
 def fetch_roads(previous):
-    """Monitor official Ecovias Rio Minas channels relevant to BR-116/RJ.
+    """Monitor Ecovias Rio Minas channels relevant to BR-116/RJ Serra.
 
-    The public website is used as an operational source. Lack of a published
-    occurrence is never interpreted as proof of unrestricted traffic.
+    Direct official pages are preferred. A read-only cache of the official URL
+    may supply context when the site blocks automated access, but cache content
+    is never interpreted as proof that traffic is free or as a live alert.
     """
     prev=previous.get("roads") or {}
     now=datetime.now(TZ)
-    endpoint_status={"conditions":"unavailable","home":"unavailable"}
-    recent_news=[]
+    headers={"User-Agent":"Mozilla/5.0 HSJ-Alerta/1.0","Accept":"text/html,application/xhtml+xml"}
+    sources={
+        "conditions":ECOVIAS_CONDITIONS,
+        "traffic":ECOVIAS_TRAFFIC,
+        "works":ECOVIAS_WORKS,
+        "contact":ECOVIAS_CONTACT,
+    }
+    endpoint_status={k:"unavailable" for k in sources}
+    direct_pages={}
+    cache_pages={}
     errors=[]
 
-    def fetch_page(url,key):
+    def get_direct(key,url):
         try:
-            r=requests.get(
-                url,
-                timeout=20,
-                headers={"User-Agent":"Mozilla/5.0 HSJ-Alerta/1.0","Accept":"text/html,application/xhtml+xml"},
-            )
+            r=requests.get(url,timeout=10,headers=headers,allow_redirects=True)
             r.raise_for_status()
+            if not r.text.strip():
+                raise RuntimeError("resposta vazia")
             endpoint_status[key]="ok"
-            return r
+            direct_pages[key]=r
         except Exception as exc:
             errors.append(f"{key}: {exc}")
+
+    with ThreadPoolExecutor(max_workers=len(sources)) as ex:
+        futures=[ex.submit(get_direct,k,u) for k,u in sources.items()]
+        for fut in as_completed(futures):
+            try: fut.result()
+            except Exception: pass
+
+    # Cache is informational only and is used mainly for news/works discovery.
+    for key in ("traffic","works"):
+        if endpoint_status.get(key)=="ok":
+            continue
+        url=sources[key]
+        try:
+            r=requests.get(
+                ECOVIAS_CACHE_READER+url,
+                timeout=8,
+                headers={"User-Agent":"HSJ-Alerta/1.0","Accept":"text/plain,*/*"},
+            )
+            r.raise_for_status()
+            if r.text.strip():
+                cache_pages[key]=r.text
+        except Exception:
+            pass
+
+    def canonical_url(href):
+        href=str(href or "").strip()
+        if not href:
             return None
+        if href.startswith("/"):
+            href="https://www.ecoviasriominas.com.br"+href
+        elif not href.startswith("http"):
+            href="https://www.ecoviasriominas.com.br/"+href.lstrip("/")
+        if "ecoviasriominas.com.br/noticias/" not in href:
+            return None
+        return href.split("#",1)[0]
 
-    conditions=fetch_page(ECOVIAS_CONDITIONS,"conditions")
-    home=fetch_page(ECOVIAS_HOME,"home")
-
-    # Capture relevant official links for Teresópolis / BR-116 from the pages.
+    discovered=[]
     seen=set()
-    for response in (home,conditions):
-        if response is None:
+    for key,response in direct_pages.items():
+        if key not in ("traffic","works","conditions"):
             continue
         soup=BeautifulSoup(response.text,"html.parser")
         for a in soup.find_all("a",href=True):
             title=re.sub(r"\s+"," ",a.get_text(" ",strip=True)).strip()
-            href=str(a.get("href") or "").strip()
-            hay=norm(title+" "+href)
-            if not title or not any(k in hay for k in ("TERESOPOLIS","BR-116","BR 116","SERRA")):
+            href=canonical_url(a.get("href"))
+            if not href or not title:
                 continue
-            if href.startswith("/"):
-                href="https://www.ecoviasriominas.com.br"+href
-            elif href and not href.startswith("http"):
-                href="https://www.ecoviasriominas.com.br/"+href.lstrip("/")
-            key=(title,href)
-            if key in seen:
+            sig=(title,href)
+            if sig in seen:
                 continue
-            seen.add(key)
-            recent_news.append({
-                "title":title,
-                "summary":title,
+            seen.add(sig)
+            discovered.append({"title":title,"url":href,"route":key})
+
+    # Jina renders official listing pages as Markdown links.
+    for key,page in cache_pages.items():
+        for title,href in re.findall(r"\[([^\]]{8,220})\]\((https?://www\.ecoviasriominas\.com\.br/noticias/[^\)]+)\)",page):
+            title=re.sub(r"\s+"," ",title).strip()
+            href=canonical_url(href)
+            sig=(title,href)
+            if not href or sig in seen:
+                continue
+            seen.add(sig)
+            discovered.append({"title":title,"url":href,"route":key,"via_cache":True})
+
+    # Limit article requests; the collector is scheduled every 15 minutes.
+    discovered=discovered[:12]
+    articles=[]
+
+    def read_article(item):
+        try:
+            r=requests.get(item["url"],timeout=8,headers=headers)
+            r.raise_for_status()
+            soup=BeautifulSoup(r.text,"html.parser")
+            title_el=soup.find("h1") or soup.find("h2")
+            title=re.sub(r"\s+"," ",title_el.get_text(" ",strip=True) if title_el else item["title"]).strip()
+            body=re.sub(r"\s+"," ",soup.get_text(" ",strip=True)).strip()
+            published=article_datetime(soup)
+            return {
+                "title":title or item["title"],
+                "url":r.url or item["url"],
+                "summary":_plain_excerpt(body,650),
+                "body_norm":norm(body),
+                "published_at":published.isoformat() if published else None,
+                "published_dt":published,
+                "route":item.get("route"),
+                "verification":"direct",
+            }
+        except Exception:
+            # Listing information is still useful for context, but is not live.
+            return {
+                "title":item.get("title") or "Publicação Ecovias Rio Minas",
+                "url":item.get("url"),
+                "summary":item.get("title") or "",
+                "body_norm":norm((item.get("title") or "")+" "+(item.get("url") or "")),
                 "published_at":None,
-                "url":href or ECOVIAS_HOME,
-                "image_url":None,
-            })
-            if len(recent_news)>=8:
-                break
-        if len(recent_news)>=8:
+                "published_dt":None,
+                "route":item.get("route"),
+                "verification":"cache_or_listing" if item.get("via_cache") else "listing",
+            }
+
+    if discovered:
+        with ThreadPoolExecutor(max_workers=min(6,len(discovered))) as ex:
+            futures=[ex.submit(read_article,item) for item in discovered]
+            for fut in as_completed(futures):
+                try: articles.append(fut.result())
+                except Exception: pass
+
+    def article_time(a):
+        return a.get("published_dt") or datetime.min.replace(tzinfo=TZ)
+
+    articles.sort(key=article_time,reverse=True)
+    serra_terms=("TERESOPOLIS","SERRA DE TERESOPOLIS","SERRA DA BR-116","RIO TERESOPOLIS","RIO-TERESOPOLIS")
+    relevant=[
+        a for a in articles
+        if "BR-116" in (a.get("body_norm") or "")
+        and any(t in (a.get("body_norm") or "") for t in serra_terms)
+    ]
+    traffic=[a for a in relevant if a.get("route")=="traffic" or any(
+        t in (a.get("body_norm") or "") for t in ("INTERDIT","BLOQUE","TRAFEGO","TRANSITO","COLISAO","QUEDA DE BARREIRA","PARE E SIGA")
+    )]
+    works=[a for a in relevant if a.get("route")=="works" or any(
+        t in (a.get("body_norm") or "") for t in ("OBRA","MANUTENCAO","PAVIMENT","DRENAGEM","CRONOGRAMA")
+    )]
+
+    def public_item(a):
+        if not a: return None
+        return {
+            "title":a.get("title"),
+            "summary":a.get("summary"),
+            "published_at":a.get("published_at"),
+            "url":a.get("url"),
+            "verification":a.get("verification"),
+        }
+
+    latest_serra=public_item(relevant[0]) if relevant else None
+    latest_traffic=public_item(traffic[0]) if traffic else None
+    latest_schedule=public_item(works[0]) if works else None
+
+    # Only direct, dated, very recent publications with explicit restriction
+    # language are shown as active operational alerts.
+    active_alerts=[]
+    for a in traffic:
+        published=a.get("published_dt")
+        if a.get("verification")!="direct" or not published:
+            continue
+        age=(now-published).total_seconds()/3600
+        if age < -0.5 or age > 24:
+            continue
+        body=a.get("body_norm") or ""
+        if not any(t in body for t in ("INTERDIT","BLOQUE","FECH","PARE E SIGA","QUEDA DE BARREIRA")):
+            continue
+        active_alerts.append(public_item(a))
+        if len(active_alerts)>=4:
             break
 
-    connected=sum(1 for v in endpoint_status.values() if v=="ok")
-    latest=recent_news[0] if recent_news else None
+    direct_count=sum(1 for v in endpoint_status.values() if v=="ok")
+    cache_used=bool(cache_pages)
+    status="ok" if direct_count>=3 else ("degraded" if direct_count or cache_used else "unavailable")
     return {
         "provider":"Ecovias Rio Minas",
         "scope":"BR-116/RJ · Rio–Teresópolis · Serra de Teresópolis",
-        "status":"ok" if connected==2 else ("degraded" if connected else "unavailable"),
-        "api_base":None,
+        "status":status,
+        "source_mode":"direct" if direct_count>=3 else ("mixed" if direct_count and cache_used else "cache_context" if cache_used else "direct_partial" if direct_count else "unavailable"),
         "endpoint_status":endpoint_status,
-        "active_alerts":[],
-        "active_alert_count":0,
+        "cache_context":{"used":cache_used,"routes":sorted(cache_pages.keys()),"can_confirm_live_traffic":False},
+        "active_alerts":active_alerts,
+        "active_alert_count":len(active_alerts),
         "no_active_alerts":False,
         "teresopolis_weather":None,
-        "latest_news":latest,
-        "latest_serra_update":latest,
-        "latest_schedule":None,
-        "latest_bulletin":None,
-        "alerts":[],
+        "latest_news":latest_serra or latest_traffic or latest_schedule,
+        "latest_serra_update":latest_serra or latest_traffic,
+        "latest_schedule":latest_schedule,
+        "latest_bulletin":latest_traffic,
+        "alerts":active_alerts,
         "weather":[],
-        "news":recent_news,
-        "bulletins":[],
+        "news":[public_item(a) for a in relevant[:8]],
+        "bulletins":[public_item(a) for a in traffic[:5]],
         "emergency_phone":"0800 116 0493",
         "accessibility_phone":"0800 116 0465",
-        "whatsapp":None,
+        "whatsapp":"0800 116 0493",
         "home_url":ECOVIAS_HOME,
         "map_url":ECOVIAS_CONDITIONS,
+        "traffic_url":ECOVIAS_TRAFFIC,
+        "works_url":ECOVIAS_WORKS,
         "collected_at":now.isoformat(),
-        "message":"Canais oficiais da Ecovias Rio Minas consultados para a BR-116/RJ. Ausência de publicação identificada não equivale a garantia de tráfego livre.",
-        "error":"; ".join(errors)[:600] if errors else None,
+        "message":"Canais da Ecovias Rio Minas consultados para a BR-116/RJ Serra. Conteúdo de cache é apenas contextual e não confirma condição de tráfego em tempo real.",
+        "error":"; ".join(errors)[:900] if errors else None,
     }
 
 def fetch_utilities(previous):
@@ -2468,6 +2601,16 @@ def main():
     inmet=fetch_inmet_alerts(previous)
     defesa=fetch_defesa_civil(previous)
     roads=fetch_roads(previous)
+    road_weather=weather_reference if weather_reference.get("status")=="ok" else weather
+    roads["teresopolis_weather"]={
+        "source":"Referência meteorológica próxima ao HSJ" if road_weather is weather_reference else "INMET A618",
+        "is_road_official_weather":False,
+        "condition":road_weather.get("condition") or ("Observação INMET" if road_weather.get("status")=="ok" else None),
+        "temperature_c":road_weather.get("temperature_c"),
+        "wind_speed_kmh":road_weather.get("wind_speed_kmh"),
+        "wind_direction":road_weather.get("wind_direction"),
+        "updated_at":road_weather.get("observed_at"),
+    }
     utilities=fetch_utilities(previous)
 
     # Only fresh/confirmed official sources may create a new escalation.
