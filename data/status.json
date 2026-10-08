@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-08T18:56:35.502596-03:00",
+  "generated_at": "2026-10-08T18:58:23.018690-03:00",
   "location": {
     "city": "Teresópolis",
     "state": "RJ",
@@ -66,13 +66,13 @@
       "risk": "Muito Baixo",
       "level": 1,
       "official_updated_at": "2026-10-08T09:11:54-03:00",
-      "age_hours": 9.7,
+      "age_hours": 9.8,
       "last_known_risk": "Muito Baixo",
       "last_known_level": 1,
       "last_known_updated_at": "2026-10-08T09:11:54-03:00",
       "freshness_limit_hours": 24,
       "message": "Informação oficial dentro da janela de 24 h.",
-      "collected_at": "2026-10-08T18:55:58.801549-03:00",
+      "collected_at": "2026-10-08T18:57:45.934262-03:00",
       "url": "https://painelcemadenrj.defesacivil.rj.gov.br/monitoramento/v2/municipio/?action=1",
       "error": null
     },
@@ -89,7 +89,7 @@
       "last_known_updated_at": "2026-10-08T05:46:29-03:00",
       "freshness_limit_hours": 24,
       "message": "Informação oficial dentro da janela de 24 h.",
-      "collected_at": "2026-10-08T18:55:59.652678-03:00",
+      "collected_at": "2026-10-08T18:57:46.818214-03:00",
       "url": "https://painelcemadenrj.defesacivil.rj.gov.br/monitoramento/v2/municipio/?action=2",
       "error": null
     },
@@ -103,7 +103,7 @@
       "active_count": 0,
       "starts_at": null,
       "ends_at": null,
-      "collected_at": "2026-10-08T18:56:11.060389-03:00",
+      "collected_at": "2026-10-08T18:57:58.032495-03:00",
       "url": "https://apiprevmet3.inmet.gov.br/avisos/ativos",
       "error": null
     },
@@ -125,14 +125,14 @@
         "rss": "https://www.teresopolis.rj.gov.br/noticias/defesa-civil"
       },
       "routes": {
-        "noticias_defesa_civil": {
-          "status": "unavailable",
-          "url": "https://www.teresopolis.rj.gov.br/noticias/defesa-civil",
-          "error": "HTTPError"
-        },
         "portal": {
           "status": "unavailable",
           "url": "https://www.teresopolis.rj.gov.br/secretarias/defesa-civil",
+          "error": "HTTPError"
+        },
+        "noticias_defesa_civil": {
+          "status": "unavailable",
+          "url": "https://www.teresopolis.rj.gov.br/noticias/defesa-civil",
           "error": "HTTPError"
         }
       },
@@ -147,20 +147,20 @@
         "used": true,
         "can_escalate": false,
         "routes": {
-          "portal": {
-            "status": "ok",
-            "official_url": "https://www.teresopolis.rj.gov.br/secretarias/defesa-civil",
-            "cache_url": "https://r.jina.ai/https://www.teresopolis.rj.gov.br/secretarias/defesa-civil"
-          },
           "noticias_defesa_civil": {
             "status": "ok",
             "official_url": "https://www.teresopolis.rj.gov.br/noticias/defesa-civil",
             "cache_url": "https://r.jina.ai/https://www.teresopolis.rj.gov.br/noticias/defesa-civil"
           },
+          "portal": {
+            "status": "ok",
+            "official_url": "https://www.teresopolis.rj.gov.br/secretarias/defesa-civil",
+            "cache_url": "https://r.jina.ai/https://www.teresopolis.rj.gov.br/secretarias/defesa-civil"
+          },
           "news_index": {
             "status": "ok",
             "url": "https://news.google.com/rss/search?q=site%3Ateresopolis.rj.gov.br+%22Defesa+Civil%22+Teres%C3%B3polis&hl=pt-BR&gl=BR&ceid=BR%3Apt-419",
-            "items": 10
+            "items": 7
           }
         },
         "available_routes": [
@@ -173,7 +173,7 @@
         "stage_hours": 48,
         "operational_signal_hours": 12
       },
-      "collected_at": "2026-10-08T18:56:12.837361-03:00",
+      "collected_at": "2026-10-08T18:57:59.864282-03:00",
       "url": "https://www.teresopolis.rj.gov.br/secretarias/defesa-civil",
       "status": "cache_only",
       "stage": null,
@@ -186,9 +186,9 @@
       "last_known_updated_at": null,
       "latest_bulletin": null,
       "latest_news": {
-        "title": "Defesa Civil - Prefeitura de Teresópolis",
-        "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFBkZzJOQlg4dFpGbURQR2xmN3VNWWlnc2hvLVRRVUtWanZkWHdJcmdjZ0xhQTJzQU5ZZE9vREFSZmVmaFdNTUlLalZDaTVjeVh3dm9tUU1jS1A?oc=5",
-        "published_at": "2026-07-01T17:42:39-03:00",
+        "title": "Defesa Civil de Teresópolis participa de treinamento sobre gestão de emergências - Prefeitura de Teresópolis",
+        "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOeDZ3RTZDZlNUMnFuT0RkdHZxS3dkdFhFS1ZYbGJ4bDNtTzJmYkk0aUJJMGp0Z3ZfTjBMQUZKcXQyNjhaQ0pxWENHcUlRWGpobGdCR0pVRUY2OXBZQVFCaTZEWUg2VnR0ZFJ1czVRdkI3Ym5DT3JFVmFtZkxpZ1RHLWYxRURQd2Y5S0xQcV81TjctOFB1VWI1ZW9tZ0FDejdOTzVwNjlmdS1iVlZPNmlfaWVRc2tWdlctN1BmOGt0TFFSZ25OcEtzWWp4UQ?oc=5",
+        "published_at": "2026-06-23T04:00:00-03:00",
         "verification": "cache_index"
       },
       "operational_signal": null,
@@ -204,7 +204,7 @@
       "type": "estação automática local"
     },
     "status": "unavailable",
-    "collected_at": "2026-10-08T18:56:00.490508-03:00",
+    "collected_at": "2026-10-08T18:57:47.618810-03:00",
     "url": "https://apitempo.inmet.gov.br/estacao/2026-10-07/2026-10-08/A618",
     "error": "https://apitempo.inmet.gov.br/estacao/2026-10-07/2026-10-08/A618 -> HTTP 204 sem conteúdo | https://apitempo.inmet.gov.br/estacao/dados/2026-10-08 -> 404 Client Error: Not Found for url: https://apitempo.inmet.gov.br/estacao/dados/2026-10-08 | https://apitempo.inmet.gov.br/estacao/dados/2026-10-07 -> 404 Client Error: Not Found for url: https://apitempo.inmet.gov.br/estacao/dados/2026-10-07"
   },
@@ -229,7 +229,7 @@
     "wind_gust_kmh": 15.8,
     "weather_code": 3,
     "condition": "Nublado",
-    "collected_at": "2026-10-08T18:56:02.585029-03:00",
+    "collected_at": "2026-10-08T18:57:49.687092-03:00",
     "url": "https://api.open-meteo.com/v1/forecast?latitude=-22.42547&longitude=-42.97975&current=temperature_2m%2Crelative_humidity_2m%2Capparent_temperature%2Cprecipitation%2Crain%2Cweather_code%2Cwind_speed_10m%2Cwind_gusts_10m&timezone=America%2FSao_Paulo",
     "message": "Referência complementar próxima ao HSJ. Não substitui INMET, CEMADEN ou Defesa Civil para alertas oficiais.",
     "error": null
@@ -245,7 +245,7 @@
       "longitude": -42.97975
     },
     "operational_radius_km": 5,
-    "grid_updated_at": "2026-10-08T18:56:02.968347-03:00",
+    "grid_updated_at": "2026-10-08T18:57:49.995865-03:00",
     "grid": [
       {
         "latitude": -22.460457,
@@ -898,14 +898,14 @@
       "url": "https://api.rainviewer.com/public/weather-maps.json",
       "error": null
     },
-    "collected_at": "2026-10-08T18:56:02.968347-03:00",
+    "collected_at": "2026-10-08T18:57:49.995865-03:00",
     "message": "Mapa complementar. Alertas e níveis HSJ permanecem baseados nas fontes oficiais integradas."
   },
   "pluviometers": {
     "provider": "CEMADEN",
     "status": "ok",
     "source_note": "Chuvas do Mapa Interativo do CEMADEN; horários em UTC convertidos para Brasília. Coordenadas vêm do próprio endpoint quando disponíveis, de cadastro GIS público ou do cadastro hidrometeorológico regional da RH-IV Piabanha (base Dez/2020), exclusivamente para distância ao HSJ.",
-    "collected_at": "2026-10-08T18:56:03.686697-03:00",
+    "collected_at": "2026-10-08T18:57:50.566794-03:00",
     "url": "https://resources.cemaden.gov.br/graficos/interativo/getJson2.php?uf=RJ",
     "total_stations": 22,
     "recent_stations": 14,
@@ -937,7 +937,7 @@
       "distance_to_hsj_km": 1.7,
       "raw_timestamp": "08/10/26 22:00",
       "observed_at": "2026-10-08T19:00:00-03:00",
-      "age_hours": -0.1,
+      "age_hours": -0.0,
       "last_mm": 0.2,
       "acc1h_mm": 1.2,
       "acc3h_mm": 3.2,
@@ -983,7 +983,7 @@
         "distance_to_hsj_km": 1.7,
         "raw_timestamp": "08/10/26 22:00",
         "observed_at": "2026-10-08T19:00:00-03:00",
-        "age_hours": -0.1,
+        "age_hours": -0.0,
         "last_mm": 0.2,
         "acc1h_mm": 1.2,
         "acc3h_mm": 3.2,
@@ -1005,7 +1005,7 @@
         "distance_to_hsj_km": 1.86,
         "raw_timestamp": "08/10/26 22:00",
         "observed_at": "2026-10-08T19:00:00-03:00",
-        "age_hours": -0.1,
+        "age_hours": -0.0,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1027,7 +1027,7 @@
         "distance_to_hsj_km": 3.95,
         "raw_timestamp": "07/07/26 20:00",
         "observed_at": "2026-07-07T17:00:00-03:00",
-        "age_hours": 2233.9,
+        "age_hours": 2234.0,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1137,7 +1137,7 @@
         "distance_to_hsj_km": 17.09,
         "raw_timestamp": "15/09/25 16:00",
         "observed_at": "2025-09-15T13:00:00-03:00",
-        "age_hours": 9317.9,
+        "age_hours": 9318.0,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1159,7 +1159,7 @@
         "distance_to_hsj_km": 25.23,
         "raw_timestamp": "08/10/26 21:30",
         "observed_at": "2026-10-08T18:30:00-03:00",
-        "age_hours": 0.4,
+        "age_hours": 0.5,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1443,7 +1443,7 @@
     "status": "ok",
     "municipality_code": "3305802",
     "municipality": "Teresópolis/RJ",
-    "collected_at": "2026-10-08T18:56:09.457680-03:00",
+    "collected_at": "2026-10-08T18:57:56.638805-03:00",
     "url": "https://apiprevmet3.inmet.gov.br/previsao/3305802",
     "days": [
       {
@@ -1559,17 +1559,20 @@
   "roads": {
     "provider": "Ecovias Rio Minas",
     "scope": "BR-116/RJ · Rio–Teresópolis · Serra de Teresópolis",
-    "status": "ok",
-    "source_mode": "direct",
+    "status": "degraded",
+    "source_mode": "mixed",
     "endpoint_status": {
-      "conditions": "ok",
-      "traffic": "ok",
-      "works": "ok",
+      "conditions": "unavailable",
+      "traffic": "unavailable",
+      "works": "unavailable",
       "contact": "ok"
     },
     "cache_context": {
-      "used": false,
-      "routes": [],
+      "used": true,
+      "routes": [
+        "traffic",
+        "works"
+      ],
       "can_confirm_live_traffic": false
     },
     "active_alerts": [],
@@ -1599,9 +1602,9 @@
     "map_url": "https://www.ecoviasriominas.com.br/condicoes-da-via",
     "traffic_url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego",
     "works_url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-obras",
-    "collected_at": "2026-10-08T18:56:15.004426-03:00",
+    "collected_at": "2026-10-08T18:58:02.146626-03:00",
     "message": "Canais da Ecovias Rio Minas consultados para a BR-116/RJ Serra. Conteúdo de cache é apenas contextual e não confirma condição de tráfego em tempo real.",
-    "error": null
+    "error": "works: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10); conditions: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10); traffic: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10)"
   },
   "utilities": {
     "status": "ok",
@@ -1613,7 +1616,7 @@
       "has_operational_notice": true,
       "phone": "0800 773 1056",
       "whatsapp": "(21) 97211-8064",
-      "collected_at": "2026-10-08T18:56:33.362017-03:00",
+      "collected_at": "2026-10-08T18:58:21.655420-03:00",
       "message": "Canal oficial acessível. Comunicados são exibidos como informação operacional e não provam continuidade ou interrupção no HSJ.",
       "error": null
     },
@@ -1623,11 +1626,11 @@
       "url": "https://www.enel.com.br/pt/Canais.html",
       "phone": "0800 28 00 120",
       "whatsapp": "(21) 99601-9608",
-      "collected_at": "2026-10-08T18:56:33.362017-03:00",
+      "collected_at": "2026-10-08T18:58:21.655420-03:00",
       "message": "Canal oficial acessível. A situação específica da unidade consumidora não é pública neste canal e deve ser confirmada pelos canais da Enel quando necessário.",
       "error": null
     },
-    "collected_at": "2026-10-08T18:56:33.362017-03:00"
+    "collected_at": "2026-10-08T18:58:21.655420-03:00"
   },
   "notifications": {
     "group_operational_email": {
@@ -1680,7 +1683,7 @@
     "weather_map": "ok",
     "radar": "ok",
     "pluviometers": "ok",
-    "roads": "ok",
+    "roads": "degraded",
     "utilities": "ok"
   }
 }
