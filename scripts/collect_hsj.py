@@ -924,6 +924,13 @@ def fetch_defesa_civil(previous):
                         except Exception:
                             published=parse_portuguese_datetime(pub_raw)
                     combined=norm((title or "")+" "+(source_name or ""))
+                    generic_title=norm(title or "")
+                    if generic_title in (
+                        "DEFESA CIVIL - PREFEITURA DE TERESOPOLIS",
+                        "SECRETARIA DE DEFESA CIVIL - PREFEITURA DE TERESOPOLIS",
+                        "PREFEITURA DE TERESOPOLIS",
+                    ):
+                        continue
                     if "DEFESA CIVIL" not in combined and not any(
                         term in combined
                         for term in ("SIREN","PONTO DE APOIO","RISCO DE DESLIZAMENTO","CELL BROADCAST")
