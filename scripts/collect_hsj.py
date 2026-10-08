@@ -547,7 +547,7 @@ def fetch_cemaden_pluviometers(previous):
         anomalies=[s for s in stations if s["status"]=="time_anomaly"]
         georeferenced=[s for s in stations if isinstance(s.get("distance_to_hsj_km"),(int,float))]
         georeferenced_recent=[s for s in recent if isinstance(s.get("distance_to_hsj_km"),(int,float))]
-        nearest=min(georeferenced_recent or georeferenced,key=lambda s:s["distance_to_hsj_km"]) if georeferenced else None
+        nearest=min(georeferenced_recent or georeferenced,key=lambda s:s["distance_to_hsj_km"]) if georeferenced else (recent[0] if recent else (stations[0] if stations else None))
         def highest(key):
             # Only fresh, internally time-consistent stations contribute to
             # dashboard maxima. Stale/anomalous values remain visible in the table.
@@ -578,7 +578,7 @@ def fetch_cemaden_pluviometers(previous):
             "highest_1h":highest("acc1h_mm"),
             "highest_24h":highest("acc24h_mm"),
             "nearest_to_hsj":nearest,
-            "nearest_note":"Distância aproximada em linha reta entre o HSJ e estações CEMADEN com coordenadas verificadas.",
+            "nearest_note":"Estação de referência selecionada entre leituras recentes; a ordenação por distância será refinada com o cadastro geográfico das estações de Teresópolis.",
             "stations":stations,
             "error":None,
         }
@@ -2336,7 +2336,7 @@ def main():
         day_value=local_hydro_normalization.get("bingen_24h_mm")
         short_window=local_hydro_normalization.get("bingen_short_window") or "curto prazo"
         reason_parts.append(
-            "Normalização hidrológica local elegível pelo estação pluviométrica de referência "
+            "Normalização hidrológica local elegível pela estação pluviométrica de referência "
             +f"({short_value:.1f} mm/{short_window}; {day_value:.1f} mm/24 h)"
         )
 
@@ -2386,7 +2386,7 @@ def main():
           "supplemental_observation":supplemental_observation,
           "supplemental_signals":supplemental_signals,
           "deescalation":deescalation,
-          "rule":"Escalada imediata somente por fonte oficial com status ok. Informação antiga não provoca nova subida. O risco Hidrológico é prioritário para o HSJ; quando o CEMADEN Hidrológico ultrapassa sua janela de 24 h sem nova atualização, o estação pluviométrica de referência pode atuar como evidência local de normalização, desde que esteja recente e abaixo de 20 mm no curto prazo e 50 mm/24 h, sem outro pluviômetro recente acima desses gatilhos, sem aviso INMET, sem previsão forte e sem sinal operacional recente da Defesa Civil. O risco Geológico antigo não congela indefinidamente o rebaixamento, mas volta a participar imediatamente quando atualizado. Defesa Civil de Teresópolis pode elevar por estágio ou sinal operacional oficial recente. CEMADEN-RJ + INMET, ambos atuais e em nível >=3, podem elevar +1. Após uma informação oficial relevante, o nível não pode cair por 2 horas. Encerrada essa janela sem nova informação de mesmo peso ou maior, são exigidas 3 verificações válidas consecutivas, separadas por ciclos reais de monitoramento, para reduzir apenas uma faixa. Novas publicações oficiais relevantes reiniciam as 2 horas; reler o mesmo aviso não reinicia o relógio. Depois da primeira queda, não há nova espera de 2 horas: são necessárias 3 novas verificações válidas para cada faixa seguinte, desde que não haja agravamento."
+          "rule":"Escalada imediata somente por fonte oficial com status ok. Informação antiga não provoca nova subida. O risco Hidrológico é prioritário para o HSJ; quando o CEMADEN Hidrológico ultrapassa sua janela de 24 h sem nova atualização, a estação pluviométrica de referência pode atuar como evidência local de normalização, desde que esteja recente e abaixo de 20 mm no curto prazo e 50 mm/24 h, sem outro pluviômetro recente acima desses gatilhos, sem aviso INMET, sem previsão forte e sem sinal operacional recente da Defesa Civil. O risco Geológico antigo não congela indefinidamente o rebaixamento, mas volta a participar imediatamente quando atualizado. Defesa Civil de Teresópolis pode elevar por estágio ou sinal operacional oficial recente. CEMADEN-RJ + INMET, ambos atuais e em nível >=3, podem elevar +1. Após uma informação oficial relevante, o nível não pode cair por 2 horas. Encerrada essa janela sem nova informação de mesmo peso ou maior, são exigidas 3 verificações válidas consecutivas, separadas por ciclos reais de monitoramento, para reduzir apenas uma faixa. Novas publicações oficiais relevantes reiniciam as 2 horas; reler o mesmo aviso não reinicia o relógio. Depois da primeira queda, não há nova espera de 2 horas: são necessárias 3 novas verificações válidas para cada faixa seguinte, desde que não haja agravamento."
       },
       "sources":{"cemaden_geological":geo,"cemaden_hydrological":hydro,"inmet_alerts":inmet,"defesa_civil":defesa},
       "weather":weather,
