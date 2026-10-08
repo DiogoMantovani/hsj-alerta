@@ -593,7 +593,9 @@ footer{
   <div class="source-health-row"><div class="source-health-name">Defesa Civil de Teresópolis</div><span id="defesaConnection" class="connection-pill connection-na">Verificando</span></div>
   <div class="source-health-row"><div class="source-health-name">Clima atual complementar</div><span id="weatherRefConnection" class="connection-pill connection-na">Verificando</span></div>
   <div class="source-health-row"><div class="source-health-name">Ecovias Rio Minas · BR-116/RJ</div><span id="roadsConnection" class="connection-pill connection-na">Verificando</span></div>
-  <div class="source-health-row"><div class="source-health-name">Enel Rio / Abastecimento de água</div><span class="connection-pill connection-na">Canal cadastrado</span></div>
+  <div class="source-health-row"><div class="source-health-name">Águas da Imperatriz</div><span id="waterConnection" class="connection-pill connection-na">Verificando</span></div>
+  <div id="waterNotice" class="small" style="padding:0 4px 8px">Aguardando consulta ao canal oficial de abastecimento.</div>
+  <div class="source-health-row"><div class="source-health-name">Enel Distribuição Rio</div><span id="energyConnection" class="connection-pill connection-na">Verificando</span></div>
 </div>
 <div class="source-health-footer">Mostra se o HSJ Alerta conseguiu acessar cada canal. Conectividade ativa não significa ausência de risco.</div>
 </article>
@@ -829,7 +831,7 @@ footer{
 
 <section id="servicos" class="panel">
 <div class="section">
-  <div><h2>Rodovias</h2><div class="small">BR‑040/495 · Serra de Teresópolis · dados consultados nos canais oficiais da Ecovias Rio Minas.</div></div>
+  <div><h2>Rodovias</h2><div class="small">BR‑116/RJ · Serra de Teresópolis · dados consultados nos canais oficiais da Ecovias Rio Minas.</div></div>
   <span class="badge">CANAL OFICIAL ECOVIAS RIO MINAS</span>
 </div>
 
@@ -844,7 +846,7 @@ footer{
 
   <article class="card road-panel-card">
     <div class="eyebrow">Condição meteorológica na rodovia</div>
-    <h3>Teresópolis · BR‑040/495</h3>
+    <h3>Teresópolis · BR‑116/RJ</h3>
     <div class="road-weather-main">
       <div id="roadsWeatherIcon" class="road-weather-icon"></div>
       <div>
@@ -1621,10 +1623,10 @@ function renderDefenseCivilPanel(data){
   const routes=dc.routes||{};
   const routeLabels={
     portal:'Portal Defesa Civil',
-    tag_defesa_civil:'Tag Defesa Civil',
-    jornalismo:'Jornalismo da Prefeitura',
-    rss_jornalismo:'RSS Jornalismo',
-    boletim_meteorologico:'Boletim Meteorológico'
+    tag_defesa_civil:'Notícias · Defesa Civil',
+    jornalismo:'Notícias da Prefeitura',
+    rss_jornalismo:'Canal de notícias',
+    boletim_meteorologico:'Publicações oficiais'
   };
   const routeRows=Object.entries(routeLabels).map(([key,label])=>{
     const route=routes[key]||{};
@@ -1736,6 +1738,9 @@ async function loadOfficialData(){
     const dc=data.sources?.defesa_civil||{};
     renderDefenseCivilPanel(data);
     const roads=data.roads||{};
+    const utilities=data.utilities||{};
+    const water=utilities.water||{};
+    const energy=utilities.energy||{};
     const w=data.weather||{};
     const wr=data.weather_reference||{};
     const fc=data.forecast||{};
@@ -1901,6 +1906,22 @@ async function loadOfficialData(){
     const roadsConnected=roads?.status==='ok';
     const roadsDegraded=roads?.status==='degraded';
     setConnection('roadsConnection',roadsConnected?'ok':roadsDegraded?'warn':'off',roadsConnected?'Conectividade ativa':roadsDegraded?'Conectividade parcial':'Sem confirmação');
+
+    const waterConnected=water?.status==='ok';
+    setConnection('waterConnection',waterConnected?'ok':'off',waterConnected?'Conectividade ativa':'Sem confirmação');
+    const waterNotice=document.getElementById('waterNotice');
+    if(waterNotice){
+      if(water?.operational_notice){
+        const txt=String(water.operational_notice).replace(/\s+/g,' ').trim();
+        waterNotice.textContent='Comunicado operacional: '+(txt.length>260?txt.slice(0,257)+'…':txt);
+      }else{
+        waterNotice.textContent=waterConnected
+          ?'Canal oficial acessível. Sem comunicado operacional destacado nesta consulta.'
+          :'Canal oficial sem confirmação nesta coleta. Fonte indisponível ≠ ausência de risco.';
+      }
+    }
+    const energyConnected=energy?.status==='ok';
+    setConnection('energyConnection',energyConnected?'ok':'off',energyConnected?'Conectividade ativa':'Sem confirmação');
 
     const operationalEmail=data?.notifications?.group_operational_email||{};
     const managersEmail=data?.notifications?.group_managers_email||{};
