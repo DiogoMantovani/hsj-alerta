@@ -758,7 +758,12 @@ def fetch_defesa_civil(previous):
     signal_freshness_hours=12
     channels={
         "emergency":"199",
+        "alternate_emergency":"1199",
         "sms":"40199",
+        "phone":"(21) 2742-3352 · ramal 911",
+        "toll_free":"0800 202 1066",
+        "email":"defesacivil@teresopolis.rj.gov.br",
+        "address":"Av. Feliciano Sodré, 675 · 1º piso · Várzea",
         "whatsapp":DEFESA_CIVIL_WHATSAPP,
         "bulletin":DEFESA_CIVIL_BOLETIM,
         "home":DEFESA_CIVIL_HOME,
@@ -790,10 +795,7 @@ def fetch_defesa_civil(previous):
 
     route_defs={
         "portal":DEFESA_CIVIL_HOME,
-        "tag_defesa_civil":DEFESA_CIVIL_TAG,
-        "jornalismo":DEFESA_CIVIL_JOURNALISM,
-        "rss_jornalismo":DEFESA_CIVIL_RSS,
-        "boletim_meteorologico":DEFESA_CIVIL_METEO_PAGE,
+        "noticias_defesa_civil":DEFESA_CIVIL_JOURNALISM,
     }
     route_results={}
     route_pages={}
@@ -851,9 +853,8 @@ def fetch_defesa_civil(previous):
 
     if not successful_routes:
         cache_targets={
-            "jornalismo":DEFESA_CIVIL_JOURNALISM,
-            "tag_defesa_civil":DEFESA_CIVIL_TAG,
-            "boletim_meteorologico":DEFESA_CIVIL_METEO_PAGE,
+            "portal":DEFESA_CIVIL_HOME,
+            "noticias_defesa_civil":DEFESA_CIVIL_JOURNALISM,
         }
         cache_routes={}
         with ThreadPoolExecutor(max_workers=len(cache_targets)) as executor:
@@ -1112,6 +1113,43 @@ def fetch_defesa_civil(previous):
                 cached_article_pages.append((url,response.text))
             except Exception:
                 continue
+
+        # Extract dated items from the official Defesa Civil listing rendered
+        # through the read-only cache. These items remain contextual only.
+        for cache_key,page in cache_pages.items():
+            page_lines=[ln.strip() for ln in str(page).splitlines()]
+            for idx,line in enumerate(page_lines):
+                dm=re.search(r"(\d{2}/\d{2}/\d{4})\s+(?:às|as)\s+(\d{1,2})h(\d{2})",line,re.I)
+                if not dm:
+                    continue
+                try:
+                    published=datetime.strptime(
+                        dm.group(1)+" "+dm.group(2)+":"+dm.group(3),
+                        "%d/%m/%Y %H:%M",
+                    ).replace(tzinfo=TZ)
+                except Exception:
+                    continue
+                title=None
+                url=DEFESA_CIVIL_JOURNALISM
+                for candidate in page_lines[idx+1:idx+7]:
+                    clean=re.sub(r"^#+\s*","",candidate).strip()
+                    link_match=re.search(r"\[([^\]]+)\]\((https?://[^\)]+)\)",clean)
+                    if link_match:
+                        title=re.sub(r"\s+"," ",link_match.group(1)).strip()
+                        url=link_match.group(2).strip()
+                        break
+                    if clean and len(clean)>15 and not clean.startswith(("Image","Fonte:")):
+                        title=re.sub(r"\s+"," ",clean).strip(" -*")
+                        break
+                if title:
+                    cached_context_items.append({
+                        "title":title[:300],
+                        "url":url,
+                        "published":published,
+                        "text":title,
+                        "normalized":norm(title),
+                        "verification":"cache_index",
+                    })
 
         source_pages=cached_article_pages or [
             (route_defs.get(key) or DEFESA_CIVIL_HOME,page)
