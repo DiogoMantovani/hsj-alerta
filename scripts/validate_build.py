@@ -49,17 +49,16 @@ if center.get("latitude") is None or center.get("longitude") is None:
     raise SystemExit("Centro do mapa meteorológico não definido")
 
 roads=status.get("roads") or {}
-if roads.get("provider")!="Elovias" or not isinstance(roads.get("endpoint_status"),dict):
-    raise SystemExit("Elovias ausente ou inválida no status.json")
+if roads.get("provider")!="Ecovias Rio Minas" or not isinstance(roads.get("endpoint_status"),dict):
+    raise SystemExit("Ecovias Rio Minas ausente ou inválida no status.json")
 
 if not (status.get("pluviometers") or {}).get("nearest_to_hsj"):
     raise SystemExit("Pluviômetro de referência próximo ao HSJ não identificado")
-stations=(status.get("pluviometers") or {}).get("stations") or []
-bingen=next((s for s in stations if s.get("name")=="Bingen - Geo"),None)
-if not bingen:
-    raise SystemExit("Bingen - Geo não localizada na coleta CEMADEN")
-if bingen.get("distance_to_hsj_km") is None:
-    raise SystemExit("Bingen - Geo sem distância calculada para o HSJ")
+reference=(status.get("pluviometers") or {}).get("nearest_to_hsj") or {}
+if not reference.get("name"):
+    raise SystemExit("Estação pluviométrica de referência não identificada")
+if reference.get("distance_to_hsj_km") is None:
+    raise SystemExit("Estação pluviométrica de referência sem distância calculada para o HSJ")
 
 history=load_json("data/history.json")
 snaps=history.get("snapshots",[])
