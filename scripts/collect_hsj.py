@@ -26,6 +26,7 @@ CEMADEN_BASE = "https://painelcemadenrj.defesacivil.rj.gov.br/monitoramento/v2/m
 CEMADEN_PLUVIO = "https://resources.cemaden.gov.br/graficos/interativo/getJson2.php?uf=RJ"
 CEMADEN_COORDS_REGISTRY = "https://observatorio.infraestrutura.mg.gov.br/server/rest/services/00_PUBLICACOES/cemaden_estacoes_pluviometricas/FeatureServer/1/query"
 CEMADEN_COORDS_REGISTRY_ALT = "https://gis.vitoria.es.gov.br/arcgis/rest/services/Opendata/DadosAbertos/MapServer/18/query"
+CEMADEN_STATIC_COORD_SOURCE = "https://www.comitepiabanha.org.br/piabanha/monitoramento/monitoramento-hidrometeorologico-rb-2020.pdf"
 INMET_WEATHER = "https://apitempo.inmet.gov.br/estacao/{start}/{end}/A618"
 INMET_ALERTS = "https://apiprevmet3.inmet.gov.br/avisos/ativos"
 INMET_FORECAST = "https://apiprevmet3.inmet.gov.br/previsao/3305802"
@@ -479,7 +480,25 @@ def distance_km(lat1,lon1,lat2,lon2):
 # Coordenadas publicadas para estações CEMADEN usadas como referências
 # geográficas do HSJ. estação pluviométrica de referência é a estação verificada mais próxima
 # dentre as estações CEMADEN com coordenadas consolidadas nesta base.
-KNOWN_CEMADEN_COORDS={}
+# Coordenadas cadastrais publicadas na rede hidrometeorológica da RH-IV Piabanha
+# (base Dez/2020). São usadas somente para geolocalização/distanceamento do HSJ;
+# a chuva observada continua vindo diretamente do CEMADEN.
+KNOWN_CEMADEN_COORDS={
+    norm("Meudon"):(-22.4361,-42.9431),
+    norm("São Pedro"):(-22.4281,-42.9619),
+    norm("Est.RioBahia"):(-22.2731,-42.9581),
+    norm("Panorama"):(-22.4181,-42.9811),
+    norm("Vieira"):(-22.2619,-42.7369),
+    norm("Fazenda Alpina"):(-22.3381,-42.9800),
+    norm("Morro dos Pinheiros"):(-22.4169,-42.9661),
+    norm("Parque do Imbui"):(-22.3900,-42.9981),
+    norm("Venda Nova"):(-22.3200,-42.8700),
+    norm("Vieira2"):(-22.2819,-42.7231),
+    norm("Est. Teresópolis/Nova Friburgo 2"):(-22.2750,-42.7319),
+    norm("Bonsucesso"):(-22.2750,-42.7961),
+    norm("Vargem Grande"):(-22.3739,-42.8719),
+    norm("Serra do Capim"):(-22.1819,-42.8511),
+}
 
 def fetch_cemaden_coordinate_registry():
     """Return station coordinates from public government GIS mirrors.
@@ -588,7 +607,7 @@ def fetch_cemaden_pluviometers(previous):
                 v=row.get(key)
                 return safe_float(v) if v not in ("-",None,"") else None
             station_name=row.get("nomeestacao") or "Estação sem nome"
-            fallback_coords=KNOWN_CEMADEN_COORDS.get(station_name)
+            fallback_coords=KNOWN_CEMADEN_COORDS.get(norm(station_name))
             registry_coords=(
                 (coord_registry.get("by_id") or {}).get(str(row.get("idestacao") or "").strip())
                 or (coord_registry.get("by_name") or {}).get(norm(station_name))
@@ -607,12 +626,19 @@ def fetch_cemaden_pluviometers(previous):
                 else fallback_coords[1] if fallback_coords
                 else None
             )
+            coordinate_method=(
+                "cemaden_endpoint" if row_lat is not None and row_lon is not None
+                else "public_gis_registry" if registry_coords
+                else "regional_hydrometeorological_register" if fallback_coords
+                else None
+            )
             stations.append({
                 "id":row.get("idestacao"),
                 "name":station_name,
                 "status":health,
                 "latitude":station_lat,
                 "longitude":station_lon,
+                "coordinate_method":coordinate_method,
                 "distance_to_hsj_km":round(distance_km(HSJ_LAT,HSJ_LON,station_lat,station_lon),2) if station_lat is not None and station_lon is not None else None,
                 "raw_timestamp":raw_dt or None,
                 "observed_at":observed.isoformat() if observed else raw_dt or None,
@@ -655,7 +681,7 @@ def fetch_cemaden_pluviometers(previous):
         return {
             "provider":"CEMADEN",
             "status":"ok" if recent else "stale",
-            "source_note":"Chuvas do Mapa Interativo do CEMADEN; horários em UTC convertidos para Brasília. Um cadastro geográfico público é usado somente para coordenadas e distância ao HSJ.",
+            "source_note":"Chuvas do Mapa Interativo do CEMADEN; horários em UTC convertidos para Brasília. Coordenadas vêm do próprio endpoint quando disponíveis, de cadastro GIS público ou do cadastro hidrometeorológico regional da RH-IV Piabanha (base Dez/2020), exclusivamente para distância ao HSJ.",
             "collected_at":now.isoformat(),
             "url":CEMADEN_PLUVIO,
             "total_stations":len(stations),
@@ -663,7 +689,8 @@ def fetch_cemaden_pluviometers(previous):
             "hidden_stations":len(stations)-len(recent),
             "time_anomaly_stations":len(anomalies),
             "georeferenced_stations":len(georeferenced),
-            "coordinate_source":"CEMADEN quando disponível + cadastro geográfico público governamental para geolocalização",
+            "coordinate_source":"CEMADEN + registros geográficos públicos para geolocalização",
+            "static_coordinate_source":CEMADEN_STATIC_COORD_SOURCE,
             "coordinate_registry_status":coord_registry.get("status"),
             "coordinate_registry_url":coord_registry.get("url"),
             "coordinate_registry_provider":coord_registry.get("registry"),
@@ -672,7 +699,7 @@ def fetch_cemaden_pluviometers(previous):
             "highest_1h":highest("acc1h_mm"),
             "highest_24h":highest("acc24h_mm"),
             "nearest_to_hsj":nearest,
-            "nearest_note":"Estação de referência selecionada entre leituras recentes e georreferenciadas, pela menor distância em linha reta até o HSJ.",
+            "nearest_note":"Estação de referência selecionada entre leituras recentes e georreferenciadas, pela menor distância em linha reta até o HSJ. A coordenada é cadastral e não altera o valor de chuva informado pelo CEMADEN.",
             "stations":stations,
             "error":None,
         }
