@@ -780,6 +780,8 @@ footer{
     <div class="dc-contact-grid">
       <div class="dc-contact-box"><span>Emergência</span><strong id="dcEmergency">199</strong></div>
       <div class="dc-contact-box"><span>Alertas por SMS</span><strong id="dcSms">40199</strong></div>
+      <div class="dc-contact-box"><span>Atendimento</span><strong id="dcPhone">(21) 2742-3352</strong></div>
+      <div class="dc-contact-box"><span>Ligação gratuita</span><strong id="dcTollFree">0800 202 1066</strong></div>
     </div>
     <div class="road-actions">
       <a id="dcHomeLink" class="btn" target="_blank" rel="noopener">Portal Defesa Civil</a>
@@ -806,10 +808,7 @@ footer{
   </div>
   <div id="dcRouteStatus" class="source-health-list">
     <div class="source-health-row"><div class="source-health-name">Portal Defesa Civil</div><span class="connection-pill connection-na">Verificando</span></div>
-    <div class="source-health-row"><div class="source-health-name">Tag Defesa Civil</div><span class="connection-pill connection-na">Verificando</span></div>
-    <div class="source-health-row"><div class="source-health-name">Jornalismo da Prefeitura</div><span class="connection-pill connection-na">Verificando</span></div>
-    <div class="source-health-row"><div class="source-health-name">RSS Jornalismo</div><span class="connection-pill connection-na">Verificando</span></div>
-    <div class="source-health-row"><div class="source-health-name">Boletim Meteorológico</div><span class="connection-pill connection-na">Verificando</span></div>
+    <div class="source-health-row"><div class="source-health-name">Notícias · Defesa Civil</div><span class="connection-pill connection-na">Verificando</span></div>
   </div>
   <div class="source-health-row" style="margin-top:8px"><div class="source-health-name">Cache secundário</div><span id="dcCacheStatus" class="connection-pill connection-na">Verificando</span></div>
   <div id="dcCacheMeta" class="source-health-footer">O cache é apenas informativo e nunca eleva o Nível HSJ.</div>
@@ -826,7 +825,7 @@ footer{
   </table></div>
 </article>
 
-<div class="callout" style="margin-top:16px"><strong>Importante:</strong> indisponibilidade do portal ou ausência de publicação recente não significam ausência de risco. O HSJ Alerta não infere normalidade quando a fonte oficial não pode ser confirmada.</div>
+<div class="callout" style="margin-top:16px"><strong>Importante:</strong> o portal municipal pode bloquear acessos automatizados do GitHub Actions. Quando isso ocorre, o HSJ Alerta identifica a indisponibilidade e usa cache somente para contexto. Cache secundário nunca eleva o Nível HSJ. Fonte indisponível ≠ ausência de risco.</div>
 </section>
 
 <section id="servicos" class="panel">
@@ -837,15 +836,15 @@ footer{
 
 <div class="roads-overview">
   <article class="card road-panel-card">
-    <div class="eyebrow">Avisos operacionais</div>
+    <div class="eyebrow">Situação operacional da Serra</div>
     <div id="roadsAlertState" class="road-alert-state">Carregando…</div>
     <div id="roadsAlertList" class="road-alert-list"></div>
-    <div id="roadsAlertNote" class="road-alert-note">Aguardando resposta da API oficial.</div>
-    <div style="margin-top:12px"><span class="road-api-ok">Ecovias Rio Minas</span></div>
+    <div id="roadsAlertNote" class="road-alert-note">Aguardando consulta aos canais oficiais.</div>
+    <div style="margin-top:12px"><span id="roadsSourceMode" class="connection-pill connection-na">Verificando fonte</span></div>
   </article>
 
   <article class="card road-panel-card">
-    <div class="eyebrow">Condição meteorológica na rodovia</div>
+    <div class="eyebrow">Condição meteorológica de apoio</div>
     <h3>Teresópolis · BR‑116/RJ</h3>
     <div class="road-weather-main">
       <div id="roadsWeatherIcon" class="road-weather-icon"></div>
@@ -853,6 +852,7 @@ footer{
         <div id="roadsWeatherTemp" class="road-weather-temp">—</div>
         <div id="roadsWeatherCondition" class="road-weather-cond">Carregando…</div>
         <div id="roadsWeatherMeta" class="road-weather-meta">—</div>
+        <div id="roadsWeatherSource" class="small">Referência meteorológica próxima ao HSJ; não é sensor viário da concessionária.</div>
       </div>
     </div>
   </article>
@@ -868,7 +868,7 @@ footer{
   </article>
 
   <article class="card">
-    <div class="eyebrow">Cronograma de obras</div>
+    <div class="eyebrow">Obras e manutenção na Serra</div>
     <div id="roadsScheduleTitle" class="road-update-title">Carregando…</div>
     <div id="roadsScheduleText" class="road-update-text">—</div>
     <div id="roadsScheduleDate" class="road-update-meta">—</div>
@@ -878,28 +878,30 @@ footer{
 
 <div class="road-footer-grid">
   <article class="card">
-    <div class="eyebrow">Boletim institucional</div>
+    <div class="eyebrow">Boletim de tráfego relacionado à Serra</div>
     <div id="roadsBulletinTitle" class="road-update-title">Carregando…</div>
     <div id="roadsBulletinDate" class="road-update-meta">—</div>
-    <div class="road-actions"><a id="roadsBulletinLink" class="btn" target="_blank" rel="noopener">Abrir PDF oficial</a></div>
+    <div class="road-actions"><a id="roadsBulletinLink" class="btn" target="_blank" rel="noopener">Abrir publicação oficial</a></div>
   </article>
 
   <article class="card">
     <div class="eyebrow">Canais operacionais</div>
     <h3 style="margin:5px 0 0">Ecovias Rio Minas</h3>
     <div class="road-contact-grid">
-      <div class="road-contact-box"><span>Emergência</span><strong>0800 040 0495</strong></div>
-      <div class="road-contact-box"><span>WhatsApp</span><strong>(21) 98040-0113</strong></div>
-      <div class="road-contact-box"><span>Acessibilidade</span><strong>0800 040 1495</strong></div>
+      <div class="road-contact-box"><span>Emergências</span><strong id="roadsEmergency">0800 116 0493</strong></div>
+      <div class="road-contact-box"><span>WhatsApp</span><strong id="roadsWhatsapp">0800 116 0493</strong></div>
+      <div class="road-contact-box"><span>Acessibilidade</span><strong id="roadsAccessibility">0800 116 0465</strong></div>
     </div>
     <div class="road-actions">
       <a class="btn" href="https://www.ecoviasriominas.com.br/" target="_blank" rel="noopener">Portal Ecovias Rio Minas</a>
-      <a class="btn" href="https://www.ecoviasriominas.com.br/condicoes-da-via" target="_blank" rel="noopener">Mapa da rodovia</a>
+      <a class="btn" href="https://www.ecoviasriominas.com.br/condicoes-da-via" target="_blank" rel="noopener">Condições da via</a>
+      <a class="btn" href="https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego" target="_blank" rel="noopener">Boletins de tráfego</a>
+      <a class="btn" href="https://www.ecoviasriominas.com.br/noticias/boletim-de-obras" target="_blank" rel="noopener">Boletins de obras</a>
     </div>
   </article>
 </div>
 
-<div class="callout" style="margin-top:16px"><strong>Importante:</strong> ausência de aviso ativo na API não significa garantia de trânsito livre. O HSJ Alerta exibe os dados oficiais disponíveis sem inferir normalidade da via.</div>
+<div class="callout" style="margin-top:16px"><strong>Importante:</strong> ausência de alerta recente identificado não significa garantia de trânsito livre. A Ecovias pode bloquear ou atrasar consultas automatizadas; por isso o painel diferencia fonte direta, conectividade parcial e cache contextual.</div>
 </section>
 
 <section id="avisos" class="panel">
@@ -1623,10 +1625,7 @@ function renderDefenseCivilPanel(data){
   const routes=dc.routes||{};
   const routeLabels={
     portal:'Portal Defesa Civil',
-    tag_defesa_civil:'Notícias · Defesa Civil',
-    jornalismo:'Notícias da Prefeitura',
-    rss_jornalismo:'Canal de notícias',
-    boletim_meteorologico:'Publicações oficiais'
+    noticias_defesa_civil:'Notícias · Defesa Civil'
   };
   const routeRows=Object.entries(routeLabels).map(([key,label])=>{
     const route=routes[key]||{};
@@ -1657,6 +1656,8 @@ function renderDefenseCivilPanel(data){
   const channels=dc.channels||{};
   document.getElementById('dcEmergency').textContent=channels.emergency||'199';
   document.getElementById('dcSms').textContent=channels.sms||'40199';
+  document.getElementById('dcPhone').textContent=channels.phone||'(21) 2742-3352';
+  document.getElementById('dcTollFree').textContent=channels.toll_free||'0800 202 1066';
   const links=[
     ['dcHomeLink',channels.home],
     ['dcBulletinLink',channels.bulletin],
@@ -1798,9 +1799,11 @@ async function loadOfficialData(){
     document.getElementById('weatherTimestamp').textContent=relativeWeatherTime(chosen?.observed_at);
     if(officialWeatherOk){
       document.getElementById('weatherEyebrow').textContent='Observação oficial · INMET';
-      document.getElementById('weatherTitle').textContent='Pico do Couto (A610)';
+      const stationName=w?.station?.name||'Teresópolis - Parque Nacional';
+      const stationCode=w?.station?.code||'A618';
+      document.getElementById('weatherTitle').textContent=stationName+' ('+stationCode+')';
       document.getElementById('weatherSourceBadge').textContent='Fonte oficial';
-      document.getElementById('weatherNote').textContent='Observação oficial regional. Pode diferir do microclima no terreno do hospital.';
+      document.getElementById('weatherNote').textContent='Estação automática oficial do INMET em Teresópolis. A condição no terreno do HSJ pode variar por microclima.';
     }else{
       document.getElementById('weatherEyebrow').textContent='Referência atual próxima ao HSJ';
       document.getElementById('weatherTitle').textContent='Hospital São José · Centro';
@@ -1961,14 +1964,26 @@ async function loadOfficialData(){
     const ep=roads?.endpoint_status||{};
     const alerts=Array.isArray(roads?.active_alerts)?roads.active_alerts:[];
     document.getElementById('roadsAlertState').textContent=alerts.length
-      ?alerts.length+' aviso'+(alerts.length>1?'s':'')+' operacional'+(alerts.length>1?'is':'')+' ativo'+(alerts.length>1?'s':'')
-      :(roads?.no_active_alerts?'Sem avisos operacionais ativos':'Avisos indisponíveis no momento');
+      ?alerts.length+' alerta'+(alerts.length>1?'s':'')+' operacional'+(alerts.length>1?'is':'')+' recente'+(alerts.length>1?'s':'')+' confirmado'+(alerts.length>1?'s':'')
+      :(roads?.status==='ok'||roads?.status==='degraded'
+        ?'Nenhum alerta recente específico da Serra confirmado'
+        :'Canal operacional sem confirmação');
     document.getElementById('roadsAlertList').innerHTML=alerts.slice(0,4).map(a=>
-      '<div class="road-alert-item"><strong>'+esc(a.title||'Aviso Ecovias Rio Minas')+'</strong>'+(a.message?'<br>'+esc(a.message):'')+'</div>'
+      '<div class="road-alert-item"><strong>'+esc(a.title||'Aviso Ecovias Rio Minas')+'</strong>'+(a.summary?'<br>'+esc(a.summary):'')+'</div>'
     ).join('');
-    document.getElementById('roadsAlertNote').textContent=roads?.no_active_alerts
-      ?'Ecovias Rio Minas não publicou aviso na última consulta. Isso não equivale a garantia de tráfego livre. Última consulta: '+fmtDate(roads?.collected_at)+'.'
-      :'Última consulta: '+fmtDate(roads?.collected_at)+'.';
+    const roadCache=roads?.cache_context||{};
+    document.getElementById('roadsAlertNote').textContent=
+      'Última consulta: '+fmtDate(roads?.collected_at)+'. '+
+      (roadCache.used
+        ?'Parte do conteúdo foi recuperada por cache contextual; isso não confirma tráfego em tempo real.'
+        :'Consulta baseada nos canais oficiais disponíveis.')+
+      ' Ausência de alerta identificado não equivale a garantia de tráfego livre.';
+    const sourceMode=roads?.source_mode||'unavailable';
+    setConnection(
+      'roadsSourceMode',
+      sourceMode==='direct'?'ok':sourceMode==='mixed'||sourceMode==='direct_partial'?'warn':sourceMode==='cache_context'?'warn':'off',
+      sourceMode==='direct'?'Fonte direta':sourceMode==='mixed'?'Direta + cache contextual':sourceMode==='direct_partial'?'Fonte direta parcial':sourceMode==='cache_context'?'Cache contextual':'Sem confirmação'
+    );
 
     const rw=roads?.teresopolis_weather||{};
     const roadVisual=weatherIconSvg(null,rw.condition||'');
@@ -1976,6 +1991,7 @@ async function loadOfficialData(){
     document.getElementById('roadsWeatherTemp').textContent=rw.temperature_c!=null?numBR(rw.temperature_c,1)+' °C':'—';
     document.getElementById('roadsWeatherCondition').textContent=rw.condition||'Sem condição confirmada';
     document.getElementById('roadsWeatherMeta').textContent=(rw.wind_speed_kmh!=null?'Vento '+numBR(rw.wind_speed_kmh,1)+' km/h'+(rw.wind_direction?' · '+rw.wind_direction:'')+' · ':'')+(rw.updated_at?'Atualizado '+fmtDate(rw.updated_at):'');
+    document.getElementById('roadsWeatherSource').textContent=(rw.source||'Referência meteorológica próxima ao HSJ')+' · apoio meteorológico, não sensor viário da concessionária.';
 
     const serra=roads?.latest_serra_update||{};
     document.getElementById('roadsSerraTitle').textContent=serra.title||'Sem atualização recente identificada';
@@ -1992,10 +2008,14 @@ async function loadOfficialData(){
     if(sched.url){schedLink.href=sched.url;schedLink.style.display='inline-block';}else{schedLink.style.display='none';}
 
     const rb=roads?.latest_bulletin||{};
-    document.getElementById('roadsBulletinTitle').textContent=rb.title||'Sem boletim disponível';
-    document.getElementById('roadsBulletinDate').textContent=rb.published_at?'Publicado em '+fmtDate(rb.published_at)+(rb.pages?' · '+rb.pages+' páginas':''):'—';
+    document.getElementById('roadsBulletinTitle').textContent=rb.title||'Sem boletim recente específico da Serra';
+    document.getElementById('roadsBulletinDate').textContent=rb.published_at?'Publicado em '+fmtDate(rb.published_at):'—';
     const rbLink=document.getElementById('roadsBulletinLink');
-    if(rb.pdf_url){rbLink.href=rb.pdf_url;rbLink.style.display='inline-block';}else{rbLink.style.display='none';}
+    const rbUrl=rb.url||rb.pdf_url;
+    if(rbUrl){rbLink.href=rbUrl;rbLink.style.display='inline-block';}else{rbLink.style.display='none';}
+    document.getElementById('roadsEmergency').textContent=roads?.emergency_phone||'0800 116 0493';
+    document.getElementById('roadsWhatsapp').textContent=roads?.whatsapp||'0800 116 0493';
+    document.getElementById('roadsAccessibility').textContent=roads?.accessibility_phone||'0800 116 0465';
 
     const level=Math.max(1,Math.min(5,Number(data.overall?.level)||1));
     applyLevel(level,data.overall?.reason||'Monitoramento CEMADEN-RJ ativo.',data.generated_at,data);
