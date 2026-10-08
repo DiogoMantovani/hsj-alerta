@@ -25,6 +25,7 @@ HISTORY_URL = "https://diogomantovani.github.io/hsj-alerta/data/history.json"
 CEMADEN_BASE = "https://painelcemadenrj.defesacivil.rj.gov.br/monitoramento/v2/municipio/"
 CEMADEN_PLUVIO = "https://resources.cemaden.gov.br/graficos/interativo/getJson2.php?uf=RJ"
 CEMADEN_COORDS_REGISTRY = "https://observatorio.infraestrutura.mg.gov.br/server/rest/services/00_PUBLICACOES/cemaden_estacoes_pluviometricas/FeatureServer/1/query"
+CEMADEN_COORDS_REGISTRY_ALT = "https://gis.vitoria.es.gov.br/arcgis/rest/services/Opendata/DadosAbertos/MapServer/18/query"
 INMET_WEATHER = "https://apitempo.inmet.gov.br/estacao/{start}/{end}/A618"
 INMET_ALERTS = "https://apiprevmet3.inmet.gov.br/avisos/ativos"
 INMET_FORECAST = "https://apiprevmet3.inmet.gov.br/previsao/3305802"
@@ -481,58 +482,74 @@ def distance_km(lat1,lon1,lat2,lon2):
 KNOWN_CEMADEN_COORDS={}
 
 def fetch_cemaden_coordinate_registry():
-    """Return station coordinates from a public government ArcGIS mirror.
+    """Return station coordinates from public government GIS mirrors.
 
-    This registry is used only for geolocation/distance. Rainfall values always
+    Registries are used only for geolocation/distance. Rainfall values always
     come from the CEMADEN monitoring endpoint.
     """
-    try:
-        r=requests.get(
-            CEMADEN_COORDS_REGISTRY,
-            params={
-                "where":"codibge=3305802",
-                "outFields":"idestacao,nomeestacao,latitude,longitude",
-                "returnGeometry":"false",
-                "f":"json",
-            },
-            timeout=12,
-            headers={"User-Agent":"Mozilla/5.0 HSJ-Alerta/1.0","Accept":"application/json"},
-        )
-        r.raise_for_status()
-        data=r.json()
-        features=data.get("features") or []
-        by_id={}
-        by_name={}
-        for feature in features:
-            attrs=(feature or {}).get("attributes") or {}
-            lat=safe_float(attrs.get("latitude"))
-            lon=safe_float(attrs.get("longitude"))
-            if lat is None or lon is None:
+    attempts=[
+        (CEMADEN_COORDS_REGISTRY,["codibge=3305802","cidade LIKE 'Teres%'"]),
+        (CEMADEN_COORDS_REGISTRY_ALT,["codibge='3305802'","codibge=3305802","cidade LIKE 'Teres%'"]),
+    ]
+    errors=[]
+    last_url=CEMADEN_COORDS_REGISTRY
+    for endpoint,where_options in attempts:
+        for where in where_options:
+            try:
+                r=requests.get(
+                    endpoint,
+                    params={
+                        "where":where,
+                        "outFields":"idestacao,nomeestacao,latitude,longitude",
+                        "returnGeometry":"false",
+                        "f":"json",
+                    },
+                    timeout=10,
+                    headers={"User-Agent":"Mozilla/5.0 HSJ-Alerta/1.0","Accept":"application/json"},
+                )
+                last_url=r.url
+                r.raise_for_status()
+                data=r.json()
+                features=data.get("features") or []
+                by_id={}
+                by_name={}
+                for feature in features:
+                    attrs=(feature or {}).get("attributes") or {}
+                    lat=safe_float(attrs.get("latitude"))
+                    lon=safe_float(attrs.get("longitude"))
+                    if lat is None or lon is None:
+                        continue
+                    sid=str(attrs.get("idestacao") or "").strip()
+                    name=str(attrs.get("nomeestacao") or "").strip()
+                    coords=(lat,lon)
+                    if sid:
+                        by_id[sid]=coords
+                    if name:
+                        by_name[norm(name)]=coords
+                if by_id or by_name:
+                    return {
+                        "status":"ok",
+                        "by_id":by_id,
+                        "by_name":by_name,
+                        "count":max(len(by_id),len(by_name)),
+                        "url":r.url,
+                        "registry":endpoint,
+                        "query":where,
+                        "error":None,
+                    }
+            except Exception as exc:
+                errors.append(f"{endpoint}: {exc}")
                 continue
-            sid=str(attrs.get("idestacao") or "").strip()
-            name=str(attrs.get("nomeestacao") or "").strip()
-            coords=(lat,lon)
-            if sid:
-                by_id[sid]=coords
-            if name:
-                by_name[norm(name)]=coords
-        return {
-            "status":"ok" if (by_id or by_name) else "empty",
-            "by_id":by_id,
-            "by_name":by_name,
-            "count":max(len(by_id),len(by_name)),
-            "url":r.url,
-            "error":None,
-        }
-    except Exception as exc:
-        return {
-            "status":"unavailable",
-            "by_id":{},
-            "by_name":{},
-            "count":0,
-            "url":CEMADEN_COORDS_REGISTRY,
-            "error":str(exc)[:300],
-        }
+    return {
+        "status":"empty" if not errors else "unavailable",
+        "by_id":{},
+        "by_name":{},
+        "count":0,
+        "url":last_url,
+        "registry":None,
+        "query":None,
+        "error":"; ".join(errors)[:500] if errors else None,
+    }
 
 def fetch_cemaden_pluviometers(previous):
     prev=previous.get("pluviometers") or {}
@@ -649,6 +666,8 @@ def fetch_cemaden_pluviometers(previous):
             "coordinate_source":"CEMADEN quando disponível + cadastro geográfico público governamental para geolocalização",
             "coordinate_registry_status":coord_registry.get("status"),
             "coordinate_registry_url":coord_registry.get("url"),
+            "coordinate_registry_provider":coord_registry.get("registry"),
+            "coordinate_registry_query":coord_registry.get("query"),
             "coordinate_registry_error":coord_registry.get("error"),
             "highest_1h":highest("acc1h_mm"),
             "highest_24h":highest("acc24h_mm"),
