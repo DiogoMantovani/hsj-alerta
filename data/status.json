@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-10T21:21:09.418392-03:00",
+  "generated_at": "2026-10-10T21:36:44.551560-03:00",
   "location": {
     "city": "Teresópolis",
     "state": "RJ",
@@ -48,7 +48,7 @@
           "official_at": "2026-10-10T16:51:01-03:00",
           "effective_at": "2026-10-10T16:51:01-03:00",
           "first_seen_at": "2026-10-10T17:06:20.991858-03:00",
-          "last_seen_at": "2026-10-10T21:21:09.417892-03:00",
+          "last_seen_at": "2026-10-10T21:36:44.551039-03:00",
           "historical": false
         },
         "cemaden_geological": {
@@ -58,7 +58,7 @@
           "official_at": "2026-10-09T17:07:45-03:00",
           "effective_at": "2026-10-09T17:07:45-03:00",
           "first_seen_at": "2026-10-09T17:21:16.052687-03:00",
-          "last_seen_at": "2026-10-10T21:21:09.417892-03:00",
+          "last_seen_at": "2026-10-10T21:36:44.551039-03:00",
           "historical": true
         }
       },
@@ -87,13 +87,13 @@
       "risk": "Sem atualização oficial recente",
       "level": null,
       "official_updated_at": "2026-10-09T17:07:45-03:00",
-      "age_hours": 28.2,
+      "age_hours": 28.5,
       "last_known_risk": "Baixo",
       "last_known_level": 2,
       "last_known_updated_at": "2026-10-09T17:07:45-03:00",
       "freshness_limit_hours": 24,
       "message": "Sem atualização oficial relevante nas últimas 24 h. Isso não significa ausência de risco.",
-      "collected_at": "2026-10-10T21:20:23.495868-03:00",
+      "collected_at": "2026-10-10T21:35:19.967520-03:00",
       "url": "https://painelcemadenrj.defesacivil.rj.gov.br/monitoramento/v2/municipio/?action=1",
       "error": null
     },
@@ -104,13 +104,13 @@
       "risk": "Baixo",
       "level": 2,
       "official_updated_at": "2026-10-10T16:51:01-03:00",
-      "age_hours": 4.5,
+      "age_hours": 4.7,
       "last_known_risk": "Baixo",
       "last_known_level": 2,
       "last_known_updated_at": "2026-10-10T16:51:01-03:00",
       "freshness_limit_hours": 24,
       "message": "Informação oficial dentro da janela de 24 h.",
-      "collected_at": "2026-10-10T21:20:24.723666-03:00",
+      "collected_at": "2026-10-10T21:35:21.334021-03:00",
       "url": "https://painelcemadenrj.defesacivil.rj.gov.br/monitoramento/v2/municipio/?action=2",
       "error": null
     },
@@ -124,7 +124,7 @@
       "active_count": 0,
       "starts_at": null,
       "ends_at": null,
-      "collected_at": "2026-10-10T21:20:41.132197-03:00",
+      "collected_at": "2026-10-10T21:36:07.773582-03:00",
       "url": "https://apiprevmet3.inmet.gov.br/avisos/ativos",
       "error": null
     },
@@ -194,7 +194,7 @@
         "stage_hours": 48,
         "operational_signal_hours": 12
       },
-      "collected_at": "2026-10-10T21:20:43.222271-03:00",
+      "collected_at": "2026-10-10T21:36:10.278931-03:00",
       "url": "https://www.teresopolis.rj.gov.br/secretarias/defesa-civil",
       "status": "cache_only",
       "stage": null,
@@ -225,7 +225,7 @@
       "type": "estação automática local"
     },
     "status": "unavailable",
-    "collected_at": "2026-10-10T21:20:25.916601-03:00",
+    "collected_at": "2026-10-10T21:35:22.514925-03:00",
     "url": "https://apitempo.inmet.gov.br/estacao/2026-10-09/2026-10-10/A618",
     "error": "https://apitempo.inmet.gov.br/estacao/2026-10-09/2026-10-10/A618 -> HTTP 204 sem conteúdo | https://apitempo.inmet.gov.br/estacao/dados/2026-10-10 -> 404 Client Error: Not Found for url: https://apitempo.inmet.gov.br/estacao/dados/2026-10-10 | https://apitempo.inmet.gov.br/estacao/dados/2026-10-09 -> 404 Client Error: Not Found for url: https://apitempo.inmet.gov.br/estacao/dados/2026-10-09"
   },
@@ -239,18 +239,18 @@
       "latitude": -22.42547,
       "longitude": -42.97975
     },
-    "observed_at": "2026-10-10T21:15:00-03:00",
+    "observed_at": "2026-10-10T21:30:00-03:00",
     "age_hours": 0.1,
     "temperature_c": 20.2,
-    "apparent_temperature_c": 23.9,
+    "apparent_temperature_c": 23.7,
     "humidity_pct": 100.0,
     "precipitation_mm": 0.3,
     "rain_mm": 0.1,
-    "wind_speed_kmh": 1.4,
-    "wind_gust_kmh": 8.6,
+    "wind_speed_kmh": 2.8,
+    "wind_gust_kmh": 11.5,
     "weather_code": 95,
     "condition": "Trovoada",
-    "collected_at": "2026-10-10T21:20:28.455592-03:00",
+    "collected_at": "2026-10-10T21:35:25.323189-03:00",
     "url": "https://api.open-meteo.com/v1/forecast?latitude=-22.42547&longitude=-42.97975&current=temperature_2m%2Crelative_humidity_2m%2Capparent_temperature%2Cprecipitation%2Crain%2Cweather_code%2Cwind_speed_10m%2Cwind_gusts_10m&timezone=America%2FSao_Paulo",
     "message": "Referência complementar próxima ao HSJ. Não substitui INMET, CEMADEN ou Defesa Civil para alertas oficiais.",
     "error": null
@@ -266,7 +266,7 @@
       "longitude": -42.97975
     },
     "operational_radius_km": 5,
-    "grid_updated_at": "2026-10-10T21:20:28.668357-03:00",
+    "grid_updated_at": "2026-10-10T21:35:27.486452-03:00",
     "grid": [
       {
         "latitude": -22.460457,
@@ -907,26 +907,26 @@
       }
     ],
     "grid_points": 49,
-    "grid_error": null,
+    "grid_error": "HTTPSConnectionPool(host='api.open-meteo.com', port=443): Read timed out. (read timeout=25)",
     "radar": {
       "status": "ok",
       "provider": "RainViewer",
       "host": "https://tilecache.rainviewer.com",
-      "path": "/v2/radar/79fc5719c33e",
-      "frame_time": "2026-10-10T21:10:00-03:00",
-      "generated_unix": 1791677730,
+      "path": "/v2/radar/ac3d4717bca2",
+      "frame_time": "2026-10-10T21:30:00-03:00",
+      "generated_unix": 1791678926,
       "tile_color_scheme": 2,
       "url": "https://api.rainviewer.com/public/weather-maps.json",
       "error": null
     },
-    "collected_at": "2026-10-10T21:20:28.668357-03:00",
+    "collected_at": "2026-10-10T21:35:27.486452-03:00",
     "message": "Mapa complementar. Alertas e níveis HSJ permanecem baseados nas fontes oficiais integradas."
   },
   "pluviometers": {
     "provider": "CEMADEN",
     "status": "ok",
     "source_note": "Chuvas do Mapa Interativo do CEMADEN; horários em UTC convertidos para Brasília. Coordenadas vêm do próprio endpoint quando disponíveis, de cadastro GIS público ou do cadastro hidrometeorológico regional da RH-IV Piabanha (base Dez/2020), exclusivamente para distância ao HSJ.",
-    "collected_at": "2026-10-10T21:20:29.440118-03:00",
+    "collected_at": "2026-10-10T21:35:53.488667-03:00",
     "url": "https://resources.cemaden.gov.br/graficos/interativo/getJson2.php?uf=RJ",
     "total_stations": 22,
     "recent_stations": 14,
@@ -941,8 +941,8 @@
     "coordinate_registry_query": null,
     "coordinate_registry_error": null,
     "highest_1h": {
-      "value": 0.2,
-      "station": "Bonsucesso"
+      "value": null,
+      "station": null
     },
     "highest_24h": {
       "value": 17.23,
@@ -958,16 +958,16 @@
       "distance_to_hsj_km": 1.7,
       "raw_timestamp": "11/10/26 00:00",
       "observed_at": "2026-10-10T21:00:00-03:00",
-      "age_hours": 0.3,
+      "age_hours": 0.6,
       "last_mm": 0.0,
       "acc1h_mm": null,
       "acc3h_mm": null,
       "acc6h_mm": null,
       "acc12h_mm": null,
       "acc24h_mm": null,
-      "acc48h_mm": 3.0,
-      "acc72h_mm": 31.53,
-      "acc96h_mm": 52.53,
+      "acc48h_mm": 2.8,
+      "acc72h_mm": 31.13,
+      "acc96h_mm": 52.33,
       "station_type": 1
     },
     "nearest_note": "Estação de referência selecionada entre leituras recentes e georreferenciadas, pela menor distância em linha reta até o HSJ. A coordenada é cadastral e não altera o valor de chuva informado pelo CEMADEN.",
@@ -982,7 +982,7 @@
         "distance_to_hsj_km": 0.83,
         "raw_timestamp": "04/08/24 16:10",
         "observed_at": "2024-08-04T13:10:00-03:00",
-        "age_hours": 19136.2,
+        "age_hours": 19136.4,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1004,16 +1004,16 @@
         "distance_to_hsj_km": 1.7,
         "raw_timestamp": "11/10/26 00:00",
         "observed_at": "2026-10-10T21:00:00-03:00",
-        "age_hours": 0.3,
+        "age_hours": 0.6,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
         "acc6h_mm": null,
         "acc12h_mm": null,
         "acc24h_mm": null,
-        "acc48h_mm": 3.0,
-        "acc72h_mm": 31.53,
-        "acc96h_mm": 52.53,
+        "acc48h_mm": 2.8,
+        "acc72h_mm": 31.13,
+        "acc96h_mm": 52.33,
         "station_type": 1
       },
       {
@@ -1026,7 +1026,7 @@
         "distance_to_hsj_km": 1.86,
         "raw_timestamp": "11/10/26 00:00",
         "observed_at": "2026-10-10T21:00:00-03:00",
-        "age_hours": 0.3,
+        "age_hours": 0.6,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1048,7 +1048,7 @@
         "distance_to_hsj_km": 3.95,
         "raw_timestamp": "07/07/26 20:00",
         "observed_at": "2026-07-07T17:00:00-03:00",
-        "age_hours": 2284.3,
+        "age_hours": 2284.6,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1070,7 +1070,7 @@
         "distance_to_hsj_km": 4.37,
         "raw_timestamp": "11/10/26 00:10",
         "observed_at": "2026-10-10T21:10:00-03:00",
-        "age_hours": 0.2,
+        "age_hours": 0.4,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1092,7 +1092,7 @@
         "distance_to_hsj_km": 9.72,
         "raw_timestamp": "01/09/25 03:50",
         "observed_at": "2025-09-01T00:50:00-03:00",
-        "age_hours": 9716.5,
+        "age_hours": 9716.8,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1114,7 +1114,7 @@
         "distance_to_hsj_km": 12.48,
         "raw_timestamp": "10/10/26 23:50",
         "observed_at": "2026-10-10T20:50:00-03:00",
-        "age_hours": 0.5,
+        "age_hours": 0.8,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1136,7 +1136,7 @@
         "distance_to_hsj_km": 16.28,
         "raw_timestamp": "31/07/14 23:50",
         "observed_at": "2014-07-31T20:50:00-03:00",
-        "age_hours": 106896.5,
+        "age_hours": 106896.8,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1158,7 +1158,7 @@
         "distance_to_hsj_km": 17.09,
         "raw_timestamp": "15/09/25 16:00",
         "observed_at": "2025-09-15T13:00:00-03:00",
-        "age_hours": 9368.3,
+        "age_hours": 9368.6,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1178,12 +1178,12 @@
         "longitude": -42.7961,
         "coordinate_method": "regional_hydrometeorological_register",
         "distance_to_hsj_km": 25.23,
-        "raw_timestamp": "10/10/26 23:30",
-        "observed_at": "2026-10-10T20:30:00-03:00",
-        "age_hours": 0.8,
-        "last_mm": 0.2,
-        "acc1h_mm": 0.2,
-        "acc3h_mm": 0.6,
+        "raw_timestamp": "11/10/26 00:30",
+        "observed_at": "2026-10-10T21:30:00-03:00",
+        "age_hours": 0.1,
+        "last_mm": 0.0,
+        "acc1h_mm": null,
+        "acc3h_mm": 0.4,
         "acc6h_mm": 17.23,
         "acc12h_mm": 17.23,
         "acc24h_mm": 17.23,
@@ -1202,10 +1202,10 @@
         "distance_to_hsj_km": 30.14,
         "raw_timestamp": "11/10/26 00:20",
         "observed_at": "2026-10-10T21:20:00-03:00",
-        "age_hours": 0.0,
+        "age_hours": 0.3,
         "last_mm": 0.0,
         "acc1h_mm": null,
-        "acc3h_mm": 3.74,
+        "acc3h_mm": 1.57,
         "acc6h_mm": 4.73,
         "acc12h_mm": 4.73,
         "acc24h_mm": 4.73,
@@ -1224,7 +1224,7 @@
         "distance_to_hsj_km": 30.49,
         "raw_timestamp": "21/06/26 05:20",
         "observed_at": "2026-06-21T02:20:00-03:00",
-        "age_hours": 2683.0,
+        "age_hours": 2683.3,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1246,7 +1246,7 @@
         "distance_to_hsj_km": 30.85,
         "raw_timestamp": "11/10/26 00:20",
         "observed_at": "2026-10-10T21:20:00-03:00",
-        "age_hours": 0.0,
+        "age_hours": 0.3,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1268,7 +1268,7 @@
         "distance_to_hsj_km": 30.9,
         "raw_timestamp": "11/10/26 00:20",
         "observed_at": "2026-10-10T21:20:00-03:00",
-        "age_hours": 0.0,
+        "age_hours": 0.3,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": 0.2,
@@ -1290,7 +1290,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "21/05/25 03:10",
         "observed_at": "2025-05-21T00:10:00-03:00",
-        "age_hours": 12189.2,
+        "age_hours": 12189.4,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1312,7 +1312,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "11/10/26 00:10",
         "observed_at": "2026-10-10T21:10:00-03:00",
-        "age_hours": 0.2,
+        "age_hours": 0.4,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1334,7 +1334,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "10/08/26 13:10",
         "observed_at": "2026-08-10T10:10:00-03:00",
-        "age_hours": 1475.2,
+        "age_hours": 1475.4,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1356,7 +1356,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "11/10/26 00:10",
         "observed_at": "2026-10-10T21:10:00-03:00",
-        "age_hours": 0.2,
+        "age_hours": 0.4,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1378,7 +1378,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "11/10/26 00:10",
         "observed_at": "2026-10-10T21:10:00-03:00",
-        "age_hours": 0.2,
+        "age_hours": 0.4,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1400,7 +1400,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "11/10/26 00:10",
         "observed_at": "2026-10-10T21:10:00-03:00",
-        "age_hours": 0.2,
+        "age_hours": 0.4,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1422,7 +1422,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "11/10/26 00:10",
         "observed_at": "2026-10-10T21:10:00-03:00",
-        "age_hours": 0.2,
+        "age_hours": 0.4,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1431,7 +1431,7 @@
         "acc24h_mm": null,
         "acc48h_mm": 0.4,
         "acc72h_mm": 0.6,
-        "acc96h_mm": 4.0,
+        "acc96h_mm": 3.6,
         "station_type": 1
       },
       {
@@ -1444,7 +1444,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "11/10/26 00:20",
         "observed_at": "2026-10-10T21:20:00-03:00",
-        "age_hours": 0.0,
+        "age_hours": 0.3,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1452,7 +1452,7 @@
         "acc12h_mm": null,
         "acc24h_mm": null,
         "acc48h_mm": 0.8,
-        "acc72h_mm": 3.6,
+        "acc72h_mm": 3.4,
         "acc96h_mm": 12.2,
         "station_type": 1
       }
@@ -1464,7 +1464,7 @@
     "status": "ok",
     "municipality_code": "3305802",
     "municipality": "Teresópolis/RJ",
-    "collected_at": "2026-10-10T21:20:39.348642-03:00",
+    "collected_at": "2026-10-10T21:36:05.848185-03:00",
     "url": "https://apiprevmet3.inmet.gov.br/previsao/3305802",
     "days": [
       {
@@ -1581,19 +1581,16 @@
     "provider": "Ecovias Rio Minas",
     "scope": "BR-116/RJ · Rio–Teresópolis · Serra de Teresópolis",
     "status": "degraded",
-    "source_mode": "cache_context",
+    "source_mode": "direct_partial",
     "endpoint_status": {
       "conditions": "unavailable",
-      "traffic": "unavailable",
-      "works": "unavailable",
+      "traffic": "ok",
+      "works": "ok",
       "contact": "unavailable"
     },
     "cache_context": {
-      "used": true,
-      "routes": [
-        "traffic",
-        "works"
-      ],
+      "used": false,
+      "routes": [],
       "can_confirm_live_traffic": false
     },
     "active_alerts": [],
@@ -1604,72 +1601,18 @@
       "is_road_official_weather": false,
       "condition": "Trovoada",
       "temperature_c": 20.2,
-      "wind_speed_kmh": 1.4,
+      "wind_speed_kmh": 2.8,
       "wind_direction": null,
-      "updated_at": "2026-10-10T21:15:00-03:00"
+      "updated_at": "2026-10-10T21:30:00-03:00"
     },
-    "latest_news": {
-      "title": "Feriado do Dia do Trabalhador deve levar 565 mil veículos às rodovias da Ecovias Rio Minas **Boletim de tráfego - Publicado em 29 de abr de 2026 às 15:00**",
-      "summary": "﻿ Feriado do Dia do Trabalhador deve levar 565 mil veículos às rodovias da Ecovias Rio Minas - EcoRodovias Emergências: 0800 116 0493 Deficientes Auditivos: 0800 116 0465 @ecoviasriominas ecoviasriominas Acessiblidade Aumentar texto Aumenta o tamanho das fontes Diminuir Textos Diminui o tamanho das fontes Contraste Contraste para daltônicos Ouvidoria Pesquise Institucional Demonstrações Financeiras Publicações Código de Conduta Notícias Revistas Condições da Via Serviços Bases de Serviços Operacionais Carta ao usuário Postos de Serviços Tarifas de Pedágio Faixa de Domínio Estatística de acidentes Benefícios Tarifários Monitoramento 24h – CCO…",
-      "published_at": null,
-      "url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego/feriado-do-dia-do-trabalhador-deve-levar-565-mil-veiculos-as-rodovias-da-ecovias-rio-minas-256252",
-      "verification": "direct"
-    },
-    "latest_serra_update": {
-      "title": "Feriado do Dia do Trabalhador deve levar 565 mil veículos às rodovias da Ecovias Rio Minas **Boletim de tráfego - Publicado em 29 de abr de 2026 às 15:00**",
-      "summary": "﻿ Feriado do Dia do Trabalhador deve levar 565 mil veículos às rodovias da Ecovias Rio Minas - EcoRodovias Emergências: 0800 116 0493 Deficientes Auditivos: 0800 116 0465 @ecoviasriominas ecoviasriominas Acessiblidade Aumentar texto Aumenta o tamanho das fontes Diminuir Textos Diminui o tamanho das fontes Contraste Contraste para daltônicos Ouvidoria Pesquise Institucional Demonstrações Financeiras Publicações Código de Conduta Notícias Revistas Condições da Via Serviços Bases de Serviços Operacionais Carta ao usuário Postos de Serviços Tarifas de Pedágio Faixa de Domínio Estatística de acidentes Benefícios Tarifários Monitoramento 24h – CCO…",
-      "published_at": null,
-      "url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego/feriado-do-dia-do-trabalhador-deve-levar-565-mil-veiculos-as-rodovias-da-ecovias-rio-minas-256252",
-      "verification": "direct"
-    },
-    "latest_schedule": {
-      "title": "Feriado do Dia do Trabalhador deve levar 565 mil veículos às rodovias da Ecovias Rio Minas **Boletim de tráfego - Publicado em 29 de abr de 2026 às 15:00**",
-      "summary": "﻿ Feriado do Dia do Trabalhador deve levar 565 mil veículos às rodovias da Ecovias Rio Minas - EcoRodovias Emergências: 0800 116 0493 Deficientes Auditivos: 0800 116 0465 @ecoviasriominas ecoviasriominas Acessiblidade Aumentar texto Aumenta o tamanho das fontes Diminuir Textos Diminui o tamanho das fontes Contraste Contraste para daltônicos Ouvidoria Pesquise Institucional Demonstrações Financeiras Publicações Código de Conduta Notícias Revistas Condições da Via Serviços Bases de Serviços Operacionais Carta ao usuário Postos de Serviços Tarifas de Pedágio Faixa de Domínio Estatística de acidentes Benefícios Tarifários Monitoramento 24h – CCO…",
-      "published_at": null,
-      "url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego/feriado-do-dia-do-trabalhador-deve-levar-565-mil-veiculos-as-rodovias-da-ecovias-rio-minas-256252",
-      "verification": "direct"
-    },
-    "latest_bulletin": {
-      "title": "Feriado do Dia do Trabalhador deve levar 565 mil veículos às rodovias da Ecovias Rio Minas **Boletim de tráfego - Publicado em 29 de abr de 2026 às 15:00**",
-      "summary": "﻿ Feriado do Dia do Trabalhador deve levar 565 mil veículos às rodovias da Ecovias Rio Minas - EcoRodovias Emergências: 0800 116 0493 Deficientes Auditivos: 0800 116 0465 @ecoviasriominas ecoviasriominas Acessiblidade Aumentar texto Aumenta o tamanho das fontes Diminuir Textos Diminui o tamanho das fontes Contraste Contraste para daltônicos Ouvidoria Pesquise Institucional Demonstrações Financeiras Publicações Código de Conduta Notícias Revistas Condições da Via Serviços Bases de Serviços Operacionais Carta ao usuário Postos de Serviços Tarifas de Pedágio Faixa de Domínio Estatística de acidentes Benefícios Tarifários Monitoramento 24h – CCO…",
-      "published_at": null,
-      "url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego/feriado-do-dia-do-trabalhador-deve-levar-565-mil-veiculos-as-rodovias-da-ecovias-rio-minas-256252",
-      "verification": "direct"
-    },
+    "latest_news": null,
+    "latest_serra_update": null,
+    "latest_schedule": null,
+    "latest_bulletin": null,
     "alerts": [],
     "weather": [],
-    "news": [
-      {
-        "title": "Feriado do Dia do Trabalhador deve levar 565 mil veículos às rodovias da Ecovias Rio Minas **Boletim de tráfego - Publicado em 29 de abr de 2026 às 15:00**",
-        "summary": "﻿ Feriado do Dia do Trabalhador deve levar 565 mil veículos às rodovias da Ecovias Rio Minas - EcoRodovias Emergências: 0800 116 0493 Deficientes Auditivos: 0800 116 0465 @ecoviasriominas ecoviasriominas Acessiblidade Aumentar texto Aumenta o tamanho das fontes Diminuir Textos Diminui o tamanho das fontes Contraste Contraste para daltônicos Ouvidoria Pesquise Institucional Demonstrações Financeiras Publicações Código de Conduta Notícias Revistas Condições da Via Serviços Bases de Serviços Operacionais Carta ao usuário Postos de Serviços Tarifas de Pedágio Faixa de Domínio Estatística de acidentes Benefícios Tarifários Monitoramento 24h – CCO…",
-        "published_at": null,
-        "url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego/feriado-do-dia-do-trabalhador-deve-levar-565-mil-veiculos-as-rodovias-da-ecovias-rio-minas-256252",
-        "verification": "direct"
-      },
-      {
-        "title": "»Próximo",
-        "summary": "﻿ Boletim de tráfego - EcoRodovias Emergências: 0800 116 0493 Deficientes Auditivos: 0800 116 0465 @ecoviasriominas ecoviasriominas Acessiblidade Aumentar texto Aumenta o tamanho das fontes Diminuir Textos Diminui o tamanho das fontes Contraste Contraste para daltônicos Ouvidoria Pesquise Institucional Demonstrações Financeiras Publicações Código de Conduta Notícias Revistas Condições da Via Serviços Bases de Serviços Operacionais Carta ao usuário Postos de Serviços Tarifas de Pedágio Faixa de Domínio Estatística de acidentes Benefícios Tarifários Monitoramento 24h – CCO Socorro Mecânico Socorro Médico Inspeção de Tráfego Apreensão de…",
-        "published_at": null,
-        "url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego?pagina=2",
-        "verification": "direct"
-      }
-    ],
-    "bulletins": [
-      {
-        "title": "Feriado do Dia do Trabalhador deve levar 565 mil veículos às rodovias da Ecovias Rio Minas **Boletim de tráfego - Publicado em 29 de abr de 2026 às 15:00**",
-        "summary": "﻿ Feriado do Dia do Trabalhador deve levar 565 mil veículos às rodovias da Ecovias Rio Minas - EcoRodovias Emergências: 0800 116 0493 Deficientes Auditivos: 0800 116 0465 @ecoviasriominas ecoviasriominas Acessiblidade Aumentar texto Aumenta o tamanho das fontes Diminuir Textos Diminui o tamanho das fontes Contraste Contraste para daltônicos Ouvidoria Pesquise Institucional Demonstrações Financeiras Publicações Código de Conduta Notícias Revistas Condições da Via Serviços Bases de Serviços Operacionais Carta ao usuário Postos de Serviços Tarifas de Pedágio Faixa de Domínio Estatística de acidentes Benefícios Tarifários Monitoramento 24h – CCO…",
-        "published_at": null,
-        "url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego/feriado-do-dia-do-trabalhador-deve-levar-565-mil-veiculos-as-rodovias-da-ecovias-rio-minas-256252",
-        "verification": "direct"
-      },
-      {
-        "title": "»Próximo",
-        "summary": "﻿ Boletim de tráfego - EcoRodovias Emergências: 0800 116 0493 Deficientes Auditivos: 0800 116 0465 @ecoviasriominas ecoviasriominas Acessiblidade Aumentar texto Aumenta o tamanho das fontes Diminuir Textos Diminui o tamanho das fontes Contraste Contraste para daltônicos Ouvidoria Pesquise Institucional Demonstrações Financeiras Publicações Código de Conduta Notícias Revistas Condições da Via Serviços Bases de Serviços Operacionais Carta ao usuário Postos de Serviços Tarifas de Pedágio Faixa de Domínio Estatística de acidentes Benefícios Tarifários Monitoramento 24h – CCO Socorro Mecânico Socorro Médico Inspeção de Tráfego Apreensão de…",
-        "published_at": null,
-        "url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego?pagina=2",
-        "verification": "direct"
-      }
-    ],
+    "news": [],
+    "bulletins": [],
     "emergency_phone": "0800 116 0493",
     "accessibility_phone": "0800 116 0465",
     "whatsapp": "0800 116 0493",
@@ -1677,9 +1620,9 @@
     "map_url": "https://www.ecoviasriominas.com.br/condicoes-da-via",
     "traffic_url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego",
     "works_url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-obras",
-    "collected_at": "2026-10-10T21:20:46.084079-03:00",
+    "collected_at": "2026-10-10T21:36:15.595913-03:00",
     "message": "Canais da Ecovias Rio Minas consultados para a BR-116/RJ Serra. Conteúdo de cache é apenas contextual e não confirma condição de tráfego em tempo real.",
-    "error": "traffic: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10); contact: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10); conditions: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10); works: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10)"
+    "error": "conditions: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10); contact: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10)"
   },
   "utilities": {
     "status": "ok",
@@ -1691,7 +1634,7 @@
       "has_operational_notice": true,
       "phone": "0800 773 1056",
       "whatsapp": "(21) 97211-8064",
-      "collected_at": "2026-10-10T21:21:07.179150-03:00",
+      "collected_at": "2026-10-10T21:36:42.049058-03:00",
       "message": "Canal oficial acessível. Comunicados são exibidos como informação operacional e não provam continuidade ou interrupção no HSJ.",
       "error": null
     },
@@ -1701,11 +1644,11 @@
       "url": "https://www.enel.com.br/pt/Canais.html",
       "phone": "0800 28 00 120",
       "whatsapp": "(21) 99601-9608",
-      "collected_at": "2026-10-10T21:21:07.179150-03:00",
+      "collected_at": "2026-10-10T21:36:42.049058-03:00",
       "message": "Canal oficial acessível. A situação específica da unidade consumidora não é pública neste canal e deve ser confirmada pelos canais da Enel quando necessário.",
       "error": null
     },
-    "collected_at": "2026-10-10T21:21:07.179150-03:00"
+    "collected_at": "2026-10-10T21:36:42.049058-03:00"
   },
   "notifications": {
     "group_operational_email": {
