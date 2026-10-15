@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-10-15T11:18:18.566137-03:00",
+  "generated_at": "2026-10-15T11:20:59.548089-03:00",
   "location": {
     "city": "Teresópolis",
     "state": "RJ",
@@ -104,7 +104,7 @@
       "last_known_updated_at": "2026-10-15T08:14:00-03:00",
       "freshness_limit_hours": 24,
       "message": "Informação oficial dentro da janela de 24 h.",
-      "collected_at": "2026-10-15T11:17:39.160451-03:00",
+      "collected_at": "2026-10-15T11:20:26.392561-03:00",
       "url": "https://painelcemadenrj.defesacivil.rj.gov.br/monitoramento/v2/municipio/?action=1",
       "error": null
     },
@@ -115,13 +115,13 @@
       "risk": "Muito Baixo",
       "level": 1,
       "official_updated_at": "2026-10-15T08:22:47-03:00",
-      "age_hours": 2.9,
+      "age_hours": 3.0,
       "last_known_risk": "Muito Baixo",
       "last_known_level": 1,
       "last_known_updated_at": "2026-10-15T08:22:47-03:00",
       "freshness_limit_hours": 24,
       "message": "Informação oficial dentro da janela de 24 h.",
-      "collected_at": "2026-10-15T11:17:40.023593-03:00",
+      "collected_at": "2026-10-15T11:20:27.471055-03:00",
       "url": "https://painelcemadenrj.defesacivil.rj.gov.br/monitoramento/v2/municipio/?action=2",
       "error": null
     },
@@ -135,7 +135,7 @@
       "active_count": 0,
       "starts_at": null,
       "ends_at": null,
-      "collected_at": "2026-10-15T11:17:51.355756-03:00",
+      "collected_at": "2026-10-15T11:20:39.983255-03:00",
       "url": "https://apiprevmet3.inmet.gov.br/avisos/ativos",
       "error": null
     },
@@ -157,14 +157,14 @@
         "rss": "https://www.teresopolis.rj.gov.br/noticias/defesa-civil"
       },
       "routes": {
-        "portal": {
-          "status": "unavailable",
-          "url": "https://www.teresopolis.rj.gov.br/secretarias/defesa-civil",
-          "error": "HTTPError"
-        },
         "noticias_defesa_civil": {
           "status": "unavailable",
           "url": "https://www.teresopolis.rj.gov.br/noticias/defesa-civil",
+          "error": "HTTPError"
+        },
+        "portal": {
+          "status": "unavailable",
+          "url": "https://www.teresopolis.rj.gov.br/secretarias/defesa-civil",
           "error": "HTTPError"
         }
       },
@@ -205,7 +205,7 @@
         "stage_hours": 48,
         "operational_signal_hours": 12
       },
-      "collected_at": "2026-10-15T11:17:53.515761-03:00",
+      "collected_at": "2026-10-15T11:20:42.807605-03:00",
       "url": "https://www.teresopolis.rj.gov.br/secretarias/defesa-civil",
       "status": "cache_only",
       "stage": null,
@@ -236,7 +236,7 @@
       "type": "estação automática local"
     },
     "status": "unavailable",
-    "collected_at": "2026-10-15T11:17:40.863557-03:00",
+    "collected_at": "2026-10-15T11:20:28.487892-03:00",
     "url": "https://apitempo.inmet.gov.br/estacao/2026-10-14/2026-10-15/A618",
     "error": "https://apitempo.inmet.gov.br/estacao/2026-10-14/2026-10-15/A618 -> HTTP 204 sem conteúdo | https://apitempo.inmet.gov.br/estacao/dados/2026-10-15 -> 404 Client Error: Not Found for url: https://apitempo.inmet.gov.br/estacao/dados/2026-10-15 | https://apitempo.inmet.gov.br/estacao/dados/2026-10-14 -> 404 Client Error: Not Found for url: https://apitempo.inmet.gov.br/estacao/dados/2026-10-14"
   },
@@ -251,7 +251,7 @@
       "longitude": -42.97975
     },
     "observed_at": "2026-10-15T11:15:00-03:00",
-    "age_hours": 0.0,
+    "age_hours": 0.1,
     "temperature_c": 24.8,
     "apparent_temperature_c": 27.3,
     "humidity_pct": 61.0,
@@ -261,7 +261,7 @@
     "wind_gust_kmh": 26.3,
     "weather_code": 51,
     "condition": "Garoa fraca",
-    "collected_at": "2026-10-15T11:17:42.927471-03:00",
+    "collected_at": "2026-10-15T11:20:31.322557-03:00",
     "url": "https://api.open-meteo.com/v1/forecast?latitude=-22.42547&longitude=-42.97975&current=temperature_2m%2Crelative_humidity_2m%2Capparent_temperature%2Cprecipitation%2Crain%2Cweather_code%2Cwind_speed_10m%2Cwind_gusts_10m&timezone=America%2FSao_Paulo",
     "message": "Referência complementar próxima ao HSJ. Não substitui INMET, CEMADEN ou Defesa Civil para alertas oficiais.",
     "error": null
@@ -277,7 +277,7 @@
       "longitude": -42.97975
     },
     "operational_radius_km": 5,
-    "grid_updated_at": "2026-10-15T11:17:43.131706-03:00",
+    "grid_updated_at": "2026-10-15T11:20:31.545351-03:00",
     "grid": [
       {
         "latitude": -22.460457,
@@ -923,21 +923,21 @@
       "status": "ok",
       "provider": "RainViewer",
       "host": "https://tilecache.rainviewer.com",
-      "path": "/v2/radar/9e5b85232213",
-      "frame_time": "2026-10-15T11:10:00-03:00",
-      "generated_unix": 1792073725,
+      "path": "/v2/radar/2dc256313897",
+      "frame_time": "2026-10-15T11:20:00-03:00",
+      "generated_unix": 1792074025,
       "tile_color_scheme": 2,
       "url": "https://api.rainviewer.com/public/weather-maps.json",
       "error": null
     },
-    "collected_at": "2026-10-15T11:17:43.131706-03:00",
+    "collected_at": "2026-10-15T11:20:31.545351-03:00",
     "message": "Mapa complementar. Alertas e níveis HSJ permanecem baseados nas fontes oficiais integradas."
   },
   "pluviometers": {
     "provider": "CEMADEN",
     "status": "ok",
     "source_note": "Chuvas do Mapa Interativo do CEMADEN; horários em UTC convertidos para Brasília. Coordenadas vêm do próprio endpoint quando disponíveis, de cadastro GIS público ou do cadastro hidrometeorológico regional da RH-IV Piabanha (base Dez/2020), exclusivamente para distância ao HSJ.",
-    "collected_at": "2026-10-15T11:17:43.771708-03:00",
+    "collected_at": "2026-10-15T11:20:32.234774-03:00",
     "url": "https://resources.cemaden.gov.br/graficos/interativo/getJson2.php?uf=RJ",
     "total_stations": 22,
     "recent_stations": 14,
@@ -993,7 +993,7 @@
         "distance_to_hsj_km": 0.83,
         "raw_timestamp": "04/08/24 16:10",
         "observed_at": "2024-08-04T13:10:00-03:00",
-        "age_hours": 19246.1,
+        "age_hours": 19246.2,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1081,7 +1081,7 @@
         "distance_to_hsj_km": 4.37,
         "raw_timestamp": "15/10/26 14:10",
         "observed_at": "2026-10-15T11:10:00-03:00",
-        "age_hours": 0.1,
+        "age_hours": 0.2,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1257,7 +1257,7 @@
         "distance_to_hsj_km": 30.85,
         "raw_timestamp": "15/10/26 14:20",
         "observed_at": "2026-10-15T11:20:00-03:00",
-        "age_hours": -0.0,
+        "age_hours": 0.0,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1279,7 +1279,7 @@
         "distance_to_hsj_km": 30.9,
         "raw_timestamp": "15/10/26 14:20",
         "observed_at": "2026-10-15T11:20:00-03:00",
-        "age_hours": -0.0,
+        "age_hours": 0.0,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1301,7 +1301,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "21/05/25 03:10",
         "observed_at": "2025-05-21T00:10:00-03:00",
-        "age_hours": 12299.1,
+        "age_hours": 12299.2,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1323,7 +1323,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "15/10/26 14:10",
         "observed_at": "2026-10-15T11:10:00-03:00",
-        "age_hours": 0.1,
+        "age_hours": 0.2,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1345,7 +1345,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "10/08/26 13:10",
         "observed_at": "2026-08-10T10:10:00-03:00",
-        "age_hours": 1585.1,
+        "age_hours": 1585.2,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1367,7 +1367,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "15/10/26 14:10",
         "observed_at": "2026-10-15T11:10:00-03:00",
-        "age_hours": 0.1,
+        "age_hours": 0.2,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1389,7 +1389,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "15/10/26 14:10",
         "observed_at": "2026-10-15T11:10:00-03:00",
-        "age_hours": 0.1,
+        "age_hours": 0.2,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1411,7 +1411,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "15/10/26 14:10",
         "observed_at": "2026-10-15T11:10:00-03:00",
-        "age_hours": 0.1,
+        "age_hours": 0.2,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1433,7 +1433,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "15/10/26 14:10",
         "observed_at": "2026-10-15T11:10:00-03:00",
-        "age_hours": 0.1,
+        "age_hours": 0.2,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": 0.2,
@@ -1455,7 +1455,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "15/10/26 14:20",
         "observed_at": "2026-10-15T11:20:00-03:00",
-        "age_hours": -0.0,
+        "age_hours": 0.0,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1475,7 +1475,7 @@
     "status": "ok",
     "municipality_code": "3305802",
     "municipality": "Teresópolis/RJ",
-    "collected_at": "2026-10-15T11:17:49.893803-03:00",
+    "collected_at": "2026-10-15T11:20:38.059593-03:00",
     "url": "https://apiprevmet3.inmet.gov.br/previsao/3305802",
     "days": [
       {
@@ -1591,20 +1591,17 @@
   "roads": {
     "provider": "Ecovias Rio Minas",
     "scope": "BR-116/RJ · Rio–Teresópolis · Serra de Teresópolis",
-    "status": "degraded",
-    "source_mode": "mixed",
+    "status": "ok",
+    "source_mode": "direct",
     "endpoint_status": {
-      "conditions": "unavailable",
-      "traffic": "unavailable",
-      "works": "unavailable",
+      "conditions": "ok",
+      "traffic": "ok",
+      "works": "ok",
       "contact": "ok"
     },
     "cache_context": {
-      "used": true,
-      "routes": [
-        "traffic",
-        "works"
-      ],
+      "used": false,
+      "routes": [],
       "can_confirm_live_traffic": false
     },
     "active_alerts": [],
@@ -1619,54 +1616,14 @@
       "wind_direction": null,
       "updated_at": "2026-10-15T11:15:00-03:00"
     },
-    "latest_news": {
-      "title": "»Próximo",
-      "summary": "﻿ Boletim de tráfego - EcoRodovias Emergências: 0800 116 0493 Deficientes Auditivos: 0800 116 0465 @ecoviasriominas ecoviasriominas Acessiblidade Aumentar texto Aumenta o tamanho das fontes Diminuir Textos Diminui o tamanho das fontes Contraste Contraste para daltônicos Ouvidoria Pesquise Institucional Demonstrações Financeiras Publicações Código de Conduta Notícias Revistas Condições da Via Serviços Bases de Serviços Operacionais Carta ao usuário Postos de Serviços Tarifas de Pedágio Faixa de Domínio Estatística de acidentes Benefícios Tarifários Monitoramento 24h – CCO Socorro Mecânico Socorro Médico Inspeção de Tráfego Apreensão de…",
-      "published_at": null,
-      "url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego?pagina=2",
-      "verification": "direct"
-    },
-    "latest_serra_update": {
-      "title": "»Próximo",
-      "summary": "﻿ Boletim de tráfego - EcoRodovias Emergências: 0800 116 0493 Deficientes Auditivos: 0800 116 0465 @ecoviasriominas ecoviasriominas Acessiblidade Aumentar texto Aumenta o tamanho das fontes Diminuir Textos Diminui o tamanho das fontes Contraste Contraste para daltônicos Ouvidoria Pesquise Institucional Demonstrações Financeiras Publicações Código de Conduta Notícias Revistas Condições da Via Serviços Bases de Serviços Operacionais Carta ao usuário Postos de Serviços Tarifas de Pedágio Faixa de Domínio Estatística de acidentes Benefícios Tarifários Monitoramento 24h – CCO Socorro Mecânico Socorro Médico Inspeção de Tráfego Apreensão de…",
-      "published_at": null,
-      "url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego?pagina=2",
-      "verification": "direct"
-    },
-    "latest_schedule": {
-      "title": "»Próximo",
-      "summary": "﻿ Boletim de tráfego - EcoRodovias Emergências: 0800 116 0493 Deficientes Auditivos: 0800 116 0465 @ecoviasriominas ecoviasriominas Acessiblidade Aumentar texto Aumenta o tamanho das fontes Diminuir Textos Diminui o tamanho das fontes Contraste Contraste para daltônicos Ouvidoria Pesquise Institucional Demonstrações Financeiras Publicações Código de Conduta Notícias Revistas Condições da Via Serviços Bases de Serviços Operacionais Carta ao usuário Postos de Serviços Tarifas de Pedágio Faixa de Domínio Estatística de acidentes Benefícios Tarifários Monitoramento 24h – CCO Socorro Mecânico Socorro Médico Inspeção de Tráfego Apreensão de…",
-      "published_at": null,
-      "url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego?pagina=2",
-      "verification": "direct"
-    },
-    "latest_bulletin": {
-      "title": "»Próximo",
-      "summary": "﻿ Boletim de tráfego - EcoRodovias Emergências: 0800 116 0493 Deficientes Auditivos: 0800 116 0465 @ecoviasriominas ecoviasriominas Acessiblidade Aumentar texto Aumenta o tamanho das fontes Diminuir Textos Diminui o tamanho das fontes Contraste Contraste para daltônicos Ouvidoria Pesquise Institucional Demonstrações Financeiras Publicações Código de Conduta Notícias Revistas Condições da Via Serviços Bases de Serviços Operacionais Carta ao usuário Postos de Serviços Tarifas de Pedágio Faixa de Domínio Estatística de acidentes Benefícios Tarifários Monitoramento 24h – CCO Socorro Mecânico Socorro Médico Inspeção de Tráfego Apreensão de…",
-      "published_at": null,
-      "url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego?pagina=2",
-      "verification": "direct"
-    },
+    "latest_news": null,
+    "latest_serra_update": null,
+    "latest_schedule": null,
+    "latest_bulletin": null,
     "alerts": [],
     "weather": [],
-    "news": [
-      {
-        "title": "»Próximo",
-        "summary": "﻿ Boletim de tráfego - EcoRodovias Emergências: 0800 116 0493 Deficientes Auditivos: 0800 116 0465 @ecoviasriominas ecoviasriominas Acessiblidade Aumentar texto Aumenta o tamanho das fontes Diminuir Textos Diminui o tamanho das fontes Contraste Contraste para daltônicos Ouvidoria Pesquise Institucional Demonstrações Financeiras Publicações Código de Conduta Notícias Revistas Condições da Via Serviços Bases de Serviços Operacionais Carta ao usuário Postos de Serviços Tarifas de Pedágio Faixa de Domínio Estatística de acidentes Benefícios Tarifários Monitoramento 24h – CCO Socorro Mecânico Socorro Médico Inspeção de Tráfego Apreensão de…",
-        "published_at": null,
-        "url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego?pagina=2",
-        "verification": "direct"
-      }
-    ],
-    "bulletins": [
-      {
-        "title": "»Próximo",
-        "summary": "﻿ Boletim de tráfego - EcoRodovias Emergências: 0800 116 0493 Deficientes Auditivos: 0800 116 0465 @ecoviasriominas ecoviasriominas Acessiblidade Aumentar texto Aumenta o tamanho das fontes Diminuir Textos Diminui o tamanho das fontes Contraste Contraste para daltônicos Ouvidoria Pesquise Institucional Demonstrações Financeiras Publicações Código de Conduta Notícias Revistas Condições da Via Serviços Bases de Serviços Operacionais Carta ao usuário Postos de Serviços Tarifas de Pedágio Faixa de Domínio Estatística de acidentes Benefícios Tarifários Monitoramento 24h – CCO Socorro Mecânico Socorro Médico Inspeção de Tráfego Apreensão de…",
-        "published_at": null,
-        "url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego?pagina=2",
-        "verification": "direct"
-      }
-    ],
+    "news": [],
+    "bulletins": [],
     "emergency_phone": "0800 116 0493",
     "accessibility_phone": "0800 116 0465",
     "whatsapp": "0800 116 0493",
@@ -1674,9 +1631,9 @@
     "map_url": "https://www.ecoviasriominas.com.br/condicoes-da-via",
     "traffic_url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego",
     "works_url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-obras",
-    "collected_at": "2026-10-15T11:17:56.969744-03:00",
+    "collected_at": "2026-10-15T11:20:45.468450-03:00",
     "message": "Canais da Ecovias Rio Minas consultados para a BR-116/RJ Serra. Conteúdo de cache é apenas contextual e não confirma condição de tráfego em tempo real.",
-    "error": "works: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10); conditions: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10); traffic: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10)"
+    "error": null
   },
   "utilities": {
     "status": "ok",
@@ -1688,7 +1645,7 @@
       "has_operational_notice": false,
       "phone": "0800 773 1056",
       "whatsapp": "(21) 97211-8064",
-      "collected_at": "2026-10-15T11:18:16.397164-03:00",
+      "collected_at": "2026-10-15T11:20:57.098963-03:00",
       "message": "Canal oficial acessível. Comunicados são exibidos como informação operacional e não provam continuidade ou interrupção no HSJ.",
       "error": null
     },
@@ -1698,11 +1655,11 @@
       "url": "https://www.enel.com.br/pt/Canais.html",
       "phone": "0800 28 00 120",
       "whatsapp": "(21) 99601-9608",
-      "collected_at": "2026-10-15T11:18:16.397164-03:00",
+      "collected_at": "2026-10-15T11:20:57.098963-03:00",
       "message": "Canal oficial acessível. A situação específica da unidade consumidora não é pública neste canal e deve ser confirmada pelos canais da Enel quando necessário.",
       "error": null
     },
-    "collected_at": "2026-10-15T11:18:16.397164-03:00"
+    "collected_at": "2026-10-15T11:20:57.098963-03:00"
   },
   "notifications": {
     "group_operational_email": {
@@ -1755,7 +1712,7 @@
     "weather_map": "ok",
     "radar": "ok",
     "pluviometers": "ok",
-    "roads": "degraded",
+    "roads": "ok",
     "utilities": "ok"
   }
 }
