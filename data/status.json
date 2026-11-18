@@ -1,15 +1,15 @@
 {
   "schema_version": 3,
-  "generated_at": "2026-11-17T23:36:31.328853-03:00",
+  "generated_at": "2026-11-17T23:52:21.565752-03:00",
   "location": {
     "city": "Teresópolis",
     "state": "RJ",
     "country": "Brasil"
   },
   "overall": {
-    "level": 2,
-    "label": "Observação",
-    "reason": "Deslizamento: Baixo, Hidrológico: Baixo. Normalização em confirmação: 2/3 verificações válidas para o próximo nível.",
+    "level": 1,
+    "label": "Vigilância",
+    "reason": "Sem condição oficial de risco acima de Vigilância nas fontes integradas. Retorno à Vigilância confirmado após 3 h sem nova publicação CEMADEN de nível 2 e 3 verificações válidas consecutivas.",
     "candidate_level": 2,
     "effective_candidate_level": 1,
     "official_candidate_level": 2,
@@ -51,7 +51,7 @@
       "descent_from_level": 2,
       "descent_window_target": 1,
       "descent_window_started_at": "2026-11-17T05:50:05-03:00",
-      "minimum_stability_elapsed_minutes": 1066.4,
+      "minimum_stability_elapsed_minutes": 1082.3,
       "minimum_stability_remaining_minutes": 0.0,
       "minimum_stability_window_hours": 3,
       "official_signals": {
@@ -62,7 +62,7 @@
           "official_at": "2026-11-17T05:50:05-03:00",
           "effective_at": "2026-11-17T05:50:05-03:00",
           "first_seen_at": "2026-11-17T05:51:24.359905-03:00",
-          "last_seen_at": "2026-11-17T23:36:31.328527-03:00",
+          "last_seen_at": "2026-11-17T23:52:21.564502-03:00",
           "historical": false
         },
         "cemaden_geological": {
@@ -72,7 +72,7 @@
           "official_at": "2026-11-17T05:35:12-03:00",
           "effective_at": "2026-11-17T05:35:12-03:00",
           "first_seen_at": "2026-11-17T05:36:31.737012-03:00",
-          "last_seen_at": "2026-11-17T23:36:31.328527-03:00",
+          "last_seen_at": "2026-11-17T23:52:21.564502-03:00",
           "historical": false
         }
       },
@@ -82,14 +82,15 @@
       "official_hold_until": "2026-11-17T08:50:05-03:00",
       "official_hold_active": false,
       "official_hold_remaining_minutes": 0.0,
-      "pending": true,
-      "phase": "confirming",
-      "target_level": 1,
+      "pending": false,
+      "phase": "stable",
+      "target_level": null,
       "blocked_by_source_gap": false,
       "blocked_by_official_hold": false,
       "blocked_reasons": [],
-      "consecutive_confirmations": 2,
-      "last_confirmation_at": "2026-11-17T23:22:11.709459-03:00"
+      "consecutive_confirmations": 0,
+      "last_confirmation_at": null,
+      "last_step_at": "2026-11-17T23:52:21.564493-03:00"
     },
     "rule": "Escalada imediata somente por fonte oficial com status ok. Informação antiga não provoca nova subida. O risco Hidrológico é prioritário para o HSJ; quando o CEMADEN Hidrológico ultrapassa sua janela de 24 h sem nova atualização, a estação pluviométrica de referência pode atuar como evidência local de normalização, desde que esteja recente e abaixo de 20 mm no curto prazo e 50 mm/24 h, sem outro pluviômetro recente acima desses gatilhos, sem aviso INMET, sem previsão forte e sem sinal operacional recente da Defesa Civil. O risco Geológico antigo não congela indefinidamente o rebaixamento, mas volta a participar imediatamente quando atualizado. Defesa Civil de Teresópolis pode elevar por estágio ou sinal operacional oficial recente. CEMADEN-RJ + INMET, ambos atuais e em nível >=3, podem elevar +1. Após uma informação oficial relevante, o nível não pode cair por 3 horas. Cada rebaixamento de uma faixa exige 3 horas contínuas de estabilidade e, depois dessa janela, 3 verificações válidas consecutivas separadas por ciclos reais de monitoramento. Novas informações oficiais que agravem ou sustentem o risco reiniciam ou interrompem a normalização conforme aplicável; reler o mesmo aviso não reinicia o relógio. Quando o único sustentador do nível 2 for uma classificação CEMADEN Baixo sem nova publicação por 3 horas, inicia-se o ciclo de 3 confirmações para retorno à Vigilância. Após cada queda de faixa, uma nova janela de 3 horas é iniciada antes de qualquer redução adicional."
   },
@@ -101,13 +102,13 @@
       "risk": "Baixo",
       "level": 2,
       "official_updated_at": "2026-11-17T05:35:12-03:00",
-      "age_hours": 18.0,
+      "age_hours": 18.3,
       "last_known_risk": "Baixo",
       "last_known_level": 2,
       "last_known_updated_at": "2026-11-17T05:35:12-03:00",
       "freshness_limit_hours": 24,
       "message": "Informação oficial dentro da janela de 24 h.",
-      "collected_at": "2026-11-17T23:35:19.636417-03:00",
+      "collected_at": "2026-11-17T23:50:24.650156-03:00",
       "url": "https://painelcemadenrj.defesacivil.rj.gov.br/monitoramento/v2/municipio/?action=1",
       "error": null
     },
@@ -118,13 +119,13 @@
       "risk": "Baixo",
       "level": 2,
       "official_updated_at": "2026-11-17T05:50:05-03:00",
-      "age_hours": 17.8,
+      "age_hours": 18.0,
       "last_known_risk": "Baixo",
       "last_known_level": 2,
       "last_known_updated_at": "2026-11-17T05:50:05-03:00",
       "freshness_limit_hours": 24,
       "message": "Informação oficial dentro da janela de 24 h.",
-      "collected_at": "2026-11-17T23:35:20.543322-03:00",
+      "collected_at": "2026-11-17T23:50:26.080762-03:00",
       "url": "https://painelcemadenrj.defesacivil.rj.gov.br/monitoramento/v2/municipio/?action=2",
       "error": null
     },
@@ -138,7 +139,7 @@
       "active_count": 0,
       "starts_at": null,
       "ends_at": null,
-      "collected_at": "2026-11-17T23:35:50.882170-03:00",
+      "collected_at": "2026-11-17T23:51:44.535411-03:00",
       "url": "https://apiprevmet3.inmet.gov.br/avisos/ativos",
       "error": null
     },
@@ -160,14 +161,14 @@
         "rss": "https://www.teresopolis.rj.gov.br/noticias/defesa-civil"
       },
       "routes": {
-        "noticias_defesa_civil": {
-          "status": "unavailable",
-          "url": "https://www.teresopolis.rj.gov.br/noticias/defesa-civil",
-          "error": "HTTPError"
-        },
         "portal": {
           "status": "unavailable",
           "url": "https://www.teresopolis.rj.gov.br/secretarias/defesa-civil",
+          "error": "HTTPError"
+        },
+        "noticias_defesa_civil": {
+          "status": "unavailable",
+          "url": "https://www.teresopolis.rj.gov.br/noticias/defesa-civil",
           "error": "HTTPError"
         }
       },
@@ -177,7 +178,7 @@
         "available_routes": []
       },
       "cache": {
-        "provider": "Jina Reader",
+        "provider": "Google News RSS",
         "status": "ok",
         "used": true,
         "can_escalate": false,
@@ -193,23 +194,22 @@
             "cache_url": "https://r.jina.ai/https://www.teresopolis.rj.gov.br/secretarias/defesa-civil"
           },
           "news_index": {
-            "status": "unavailable",
-            "url": "https://news.google.com/rss/search",
-            "error": "HTTPError"
+            "status": "ok",
+            "url": "https://news.google.com/rss/search?q=site%3Ateresopolis.rj.gov.br+%22Defesa+Civil%22+Teres%C3%B3polis&hl=pt-BR&gl=BR&ceid=BR%3Apt-419",
+            "items": 7
           }
         },
         "available_routes": [
-          "noticias_defesa_civil",
-          "portal"
+          "news_index"
         ],
-        "message": "Cache secundário ativo somente para contexto; não pode elevar o Nível HSJ."
+        "message": "Índice RSS secundário ativo somente para contexto; não pode elevar o Nível HSJ."
       },
       "cache_hint": null,
       "freshness": {
         "stage_hours": 48,
         "operational_signal_hours": 12
       },
-      "collected_at": "2026-11-17T23:35:52.648028-03:00",
+      "collected_at": "2026-11-17T23:51:46.922514-03:00",
       "url": "https://www.teresopolis.rj.gov.br/secretarias/defesa-civil",
       "status": "cache_only",
       "stage": null,
@@ -222,9 +222,9 @@
       "last_known_updated_at": null,
       "latest_bulletin": null,
       "latest_news": {
-        "title": "Defesa Civil de Teresópolis recebe novos instrumentos de planejamento e resposta a situações de emergência - Prefeitura de Teresópolis",
-        "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxPQUhnZm5ONkxvbjRDLUFMZXh0Z2RCNDcyb21XVHpiOFNWVy1MZ0dsak1iOVFlUXFjcWpQVXp0SEFDcXdubGFzZ0ZPMHVZcHIyUVEtQ05GVFdveURzMEMtcFpyZS1kWHNla1JoclptRHFZUXRwUWRwNWhmdVVQVFViYmFUUVNkRjV1LTAtSVZzdUUwQUdTQzltQ1dvN0k0c1dfUG5HUGJEVGJUWUdpLXlrUWNVdzQzaEhLRGRlcFN1TERDTHZfS1R4N3AzQmZJam9hc2t1bzdvVG5wck9DN3g5MDRzbGpPMHZJSTR1V3VmNA?oc=5",
-        "published_at": "2026-11-17T11:43:20-03:00",
+        "title": "Defesa Civil realiza simulado de mobilização em área de risco e testa sistemas de alerta - Prefeitura de Teresópolis",
+        "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNUllvUVBVZ0R6SWxwSUZibXM4YVlpRGs1aEdUQzVESHEzT3BEdXBjWXczUWZVbTByVExDRjRqQTRkN0E3NG9aZnBIbGNaRjREaFhxZ1FCWmRSWXFjVF82UlNQclBSejF4QW5vZFc2dDJKbUtGeHJuOGxtQk1XU3hjY2dGWG1Xb1ByN3BNOWk3RFFad0h0elFoamwwUWI4dXhpMkw0a2xlNXlRT0JFSkRsM0tSbUlkLXNvYklQcXF0dFVsMFBhbjBXdEhkcHRZS1NoSjRsSUt1NA?oc=5",
+        "published_at": "2026-11-16T13:30:11-03:00",
         "verification": "cache_index"
       },
       "operational_signal": null,
@@ -240,7 +240,7 @@
       "type": "estação automática local"
     },
     "status": "unavailable",
-    "collected_at": "2026-11-17T23:35:21.437641-03:00",
+    "collected_at": "2026-11-17T23:50:27.302398-03:00",
     "url": "https://apitempo.inmet.gov.br/estacao/2026-11-16/2026-11-17/A618",
     "error": "https://apitempo.inmet.gov.br/estacao/2026-11-16/2026-11-17/A618 -> HTTP 204 sem conteúdo | https://apitempo.inmet.gov.br/estacao/dados/2026-11-17 -> 404 Client Error: Not Found for url: https://apitempo.inmet.gov.br/estacao/dados/2026-11-17 | https://apitempo.inmet.gov.br/estacao/dados/2026-11-16 -> 404 Client Error: Not Found for url: https://apitempo.inmet.gov.br/estacao/dados/2026-11-16"
   },
@@ -248,7 +248,7 @@
     "provider": "Open-Meteo",
     "source_type": "estimativa meteorológica complementar",
     "official": false,
-    "status": "ok",
+    "status": "source_unconfirmed",
     "location": {
       "name": "Hospital Santa Teresa",
       "latitude": -22.42547,
@@ -265,10 +265,10 @@
     "wind_gust_kmh": 20.5,
     "weather_code": 45,
     "condition": "Nevoeiro",
-    "collected_at": "2026-11-17T23:35:23.607908-03:00",
+    "collected_at": "2026-11-17T23:50:30.429810-03:00",
     "url": "https://api.open-meteo.com/v1/forecast?latitude=-22.42547&longitude=-42.97975&current=temperature_2m%2Crelative_humidity_2m%2Capparent_temperature%2Cprecipitation%2Crain%2Cweather_code%2Cwind_speed_10m%2Cwind_gusts_10m&timezone=America%2FSao_Paulo",
-    "message": "Referência complementar próxima ao HSJ. Não substitui INMET, CEMADEN ou Defesa Civil para alertas oficiais.",
-    "error": null
+    "message": "Sem condição meteorológica complementar recente confirmada. Isso não significa ausência de risco.",
+    "error": "HTTPSConnectionPool(host='api.open-meteo.com', port=443): Read timed out. (read timeout=18)"
   },
   "weather_map": {
     "status": "ok",
@@ -281,7 +281,7 @@
       "longitude": -42.97975
     },
     "operational_radius_km": 5,
-    "grid_updated_at": "2026-11-17T23:35:23.699319-03:00",
+    "grid_updated_at": "2026-11-17T23:50:48.464558-03:00",
     "grid": [
       {
         "latitude": -22.460457,
@@ -922,26 +922,26 @@
       }
     ],
     "grid_points": 49,
-    "grid_error": null,
+    "grid_error": "HTTPSConnectionPool(host='api.open-meteo.com', port=443): Read timed out. (read timeout=25)",
     "radar": {
       "status": "ok",
       "provider": "RainViewer",
       "host": "https://tilecache.rainviewer.com",
-      "path": "/v2/radar/649529b3a9f1",
-      "frame_time": "2026-11-17T23:30:00-03:00",
-      "generated_unix": 1794969023,
+      "path": "/v2/radar/3b41f7043b90",
+      "frame_time": "2026-11-17T23:50:00-03:00",
+      "generated_unix": 1794970223,
       "tile_color_scheme": 2,
       "url": "https://api.rainviewer.com/public/weather-maps.json",
       "error": null
     },
-    "collected_at": "2026-11-17T23:35:23.699319-03:00",
+    "collected_at": "2026-11-17T23:50:48.464558-03:00",
     "message": "Mapa complementar. Alertas e níveis HSJ permanecem baseados nas fontes oficiais integradas."
   },
   "pluviometers": {
     "provider": "CEMADEN",
     "status": "ok",
     "source_note": "Chuvas do Mapa Interativo do CEMADEN; horários em UTC convertidos para Brasília. Coordenadas vêm do próprio endpoint quando disponíveis, de cadastro GIS público ou do cadastro hidrometeorológico regional da RH-IV Piabanha (base Dez/2020), exclusivamente para distância ao HSJ.",
-    "collected_at": "2026-11-17T23:35:24.410036-03:00",
+    "collected_at": "2026-11-17T23:51:14.025337-03:00",
     "url": "https://resources.cemaden.gov.br/graficos/interativo/getJson2.php?uf=RJ",
     "total_stations": 22,
     "recent_stations": 14,
@@ -973,7 +973,7 @@
       "distance_to_hsj_km": 1.7,
       "raw_timestamp": "18/11/26 02:00",
       "observed_at": "2026-11-17T23:00:00-03:00",
-      "age_hours": 0.6,
+      "age_hours": 0.9,
       "last_mm": 0.0,
       "acc1h_mm": null,
       "acc3h_mm": null,
@@ -997,7 +997,7 @@
         "distance_to_hsj_km": 0.83,
         "raw_timestamp": "04/08/24 16:10",
         "observed_at": "2024-08-04T13:10:00-03:00",
-        "age_hours": 20050.4,
+        "age_hours": 20050.7,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1019,7 +1019,7 @@
         "distance_to_hsj_km": 1.7,
         "raw_timestamp": "18/11/26 02:00",
         "observed_at": "2026-11-17T23:00:00-03:00",
-        "age_hours": 0.6,
+        "age_hours": 0.9,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1041,7 +1041,7 @@
         "distance_to_hsj_km": 1.86,
         "raw_timestamp": "18/11/26 02:00",
         "observed_at": "2026-11-17T23:00:00-03:00",
-        "age_hours": 0.6,
+        "age_hours": 0.9,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1063,7 +1063,7 @@
         "distance_to_hsj_km": 3.95,
         "raw_timestamp": "07/07/26 20:00",
         "observed_at": "2026-07-07T17:00:00-03:00",
-        "age_hours": 3198.6,
+        "age_hours": 3198.9,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1085,7 +1085,7 @@
         "distance_to_hsj_km": 4.37,
         "raw_timestamp": "18/11/26 02:10",
         "observed_at": "2026-11-17T23:10:00-03:00",
-        "age_hours": 0.4,
+        "age_hours": 0.7,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1107,7 +1107,7 @@
         "distance_to_hsj_km": 9.72,
         "raw_timestamp": "01/09/25 03:50",
         "observed_at": "2025-09-01T00:50:00-03:00",
-        "age_hours": 10630.8,
+        "age_hours": 10631.0,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1129,7 +1129,7 @@
         "distance_to_hsj_km": 12.48,
         "raw_timestamp": "18/11/26 01:50",
         "observed_at": "2026-11-17T22:50:00-03:00",
-        "age_hours": 0.8,
+        "age_hours": 1.0,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1151,7 +1151,7 @@
         "distance_to_hsj_km": 16.28,
         "raw_timestamp": "31/07/14 23:50",
         "observed_at": "2014-07-31T20:50:00-03:00",
-        "age_hours": 107810.8,
+        "age_hours": 107811.0,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1173,7 +1173,7 @@
         "distance_to_hsj_km": 17.09,
         "raw_timestamp": "15/09/25 16:00",
         "observed_at": "2025-09-15T13:00:00-03:00",
-        "age_hours": 10282.6,
+        "age_hours": 10282.9,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1195,7 +1195,7 @@
         "distance_to_hsj_km": 25.23,
         "raw_timestamp": "18/11/26 01:30",
         "observed_at": "2026-11-17T22:30:00-03:00",
-        "age_hours": 1.1,
+        "age_hours": 1.4,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1217,7 +1217,7 @@
         "distance_to_hsj_km": 30.14,
         "raw_timestamp": "18/11/26 02:20",
         "observed_at": "2026-11-17T23:20:00-03:00",
-        "age_hours": 0.3,
+        "age_hours": 0.5,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1239,7 +1239,7 @@
         "distance_to_hsj_km": 30.49,
         "raw_timestamp": "21/06/26 05:20",
         "observed_at": "2026-06-21T02:20:00-03:00",
-        "age_hours": 3597.3,
+        "age_hours": 3597.5,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1261,7 +1261,7 @@
         "distance_to_hsj_km": 30.85,
         "raw_timestamp": "18/11/26 02:20",
         "observed_at": "2026-11-17T23:20:00-03:00",
-        "age_hours": 0.3,
+        "age_hours": 0.5,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1283,7 +1283,7 @@
         "distance_to_hsj_km": 30.9,
         "raw_timestamp": "18/11/26 02:20",
         "observed_at": "2026-11-17T23:20:00-03:00",
-        "age_hours": 0.3,
+        "age_hours": 0.5,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1305,7 +1305,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "21/05/25 03:10",
         "observed_at": "2025-05-21T00:10:00-03:00",
-        "age_hours": 13103.4,
+        "age_hours": 13103.7,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1327,7 +1327,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "18/11/26 02:10",
         "observed_at": "2026-11-17T23:10:00-03:00",
-        "age_hours": 0.4,
+        "age_hours": 0.7,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1349,7 +1349,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "10/08/26 13:10",
         "observed_at": "2026-08-10T10:10:00-03:00",
-        "age_hours": 2389.4,
+        "age_hours": 2389.7,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1371,7 +1371,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "18/11/26 02:10",
         "observed_at": "2026-11-17T23:10:00-03:00",
-        "age_hours": 0.4,
+        "age_hours": 0.7,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1393,7 +1393,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "18/11/26 02:10",
         "observed_at": "2026-11-17T23:10:00-03:00",
-        "age_hours": 0.4,
+        "age_hours": 0.7,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1415,7 +1415,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "18/11/26 02:10",
         "observed_at": "2026-11-17T23:10:00-03:00",
-        "age_hours": 0.4,
+        "age_hours": 0.7,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1437,7 +1437,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "18/11/26 02:10",
         "observed_at": "2026-11-17T23:10:00-03:00",
-        "age_hours": 0.4,
+        "age_hours": 0.7,
         "last_mm": 0.0,
         "acc1h_mm": null,
         "acc3h_mm": null,
@@ -1459,7 +1459,7 @@
         "distance_to_hsj_km": null,
         "raw_timestamp": "18/11/26 02:20",
         "observed_at": "2026-11-17T23:20:00-03:00",
-        "age_hours": 0.3,
+        "age_hours": 0.5,
         "last_mm": 0.0,
         "acc1h_mm": 0.2,
         "acc3h_mm": 0.4,
@@ -1479,7 +1479,7 @@
     "status": "ok",
     "municipality_code": "3305802",
     "municipality": "Teresópolis/RJ",
-    "collected_at": "2026-11-17T23:35:49.369783-03:00",
+    "collected_at": "2026-11-17T23:51:42.423611-03:00",
     "url": "https://apiprevmet3.inmet.gov.br/previsao/3305802",
     "days": [
       {
@@ -1596,31 +1596,29 @@
     "provider": "Ecovias Rio Minas",
     "scope": "BR-116/RJ · Rio–Teresópolis · Serra de Teresópolis",
     "status": "degraded",
-    "source_mode": "cache_context",
+    "source_mode": "direct_partial",
     "endpoint_status": {
       "conditions": "unavailable",
-      "traffic": "unavailable",
-      "works": "unavailable",
+      "traffic": "ok",
+      "works": "ok",
       "contact": "unavailable"
     },
     "cache_context": {
-      "used": true,
-      "routes": [
-        "traffic"
-      ],
+      "used": false,
+      "routes": [],
       "can_confirm_live_traffic": false
     },
     "active_alerts": [],
     "active_alert_count": 0,
     "no_active_alerts": false,
     "teresopolis_weather": {
-      "source": "Referência meteorológica próxima ao HSJ",
+      "source": "INMET A618",
       "is_road_official_weather": false,
-      "condition": "Nevoeiro",
-      "temperature_c": 16.7,
-      "wind_speed_kmh": 4.8,
+      "condition": null,
+      "temperature_c": null,
+      "wind_speed_kmh": null,
       "wind_direction": null,
-      "updated_at": "2026-11-17T23:30:00-03:00"
+      "updated_at": null
     },
     "latest_news": null,
     "latest_serra_update": null,
@@ -1637,9 +1635,9 @@
     "map_url": "https://www.ecoviasriominas.com.br/condicoes-da-via",
     "traffic_url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-trafego",
     "works_url": "https://www.ecoviasriominas.com.br/noticias/boletim-de-obras",
-    "collected_at": "2026-11-17T23:35:55.267380-03:00",
+    "collected_at": "2026-11-17T23:51:50.379175-03:00",
     "message": "Canais da Ecovias Rio Minas consultados para a BR-116/RJ Serra. Conteúdo de cache é apenas contextual e não confirma condição de tráfego em tempo real.",
-    "error": "contact: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10); conditions: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10); traffic: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10); works: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10)"
+    "error": "contact: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10); conditions: HTTPSConnectionPool(host='www.ecoviasriominas.com.br', port=443): Read timed out. (read timeout=10)"
   },
   "utilities": {
     "status": "ok",
@@ -1651,7 +1649,7 @@
       "has_operational_notice": false,
       "phone": "0800 773 1056",
       "whatsapp": "(21) 97211-8064",
-      "collected_at": "2026-11-17T23:36:30.005452-03:00",
+      "collected_at": "2026-11-17T23:52:16.759709-03:00",
       "message": "Canal oficial acessível. Comunicados são exibidos como informação operacional e não provam continuidade ou interrupção no HSJ.",
       "error": null
     },
@@ -1661,11 +1659,11 @@
       "url": "https://www.enel.com.br/pt/Canais.html",
       "phone": "0800 28 00 120",
       "whatsapp": "(21) 99601-9608",
-      "collected_at": "2026-11-17T23:36:30.005452-03:00",
+      "collected_at": "2026-11-17T23:52:16.759709-03:00",
       "message": "Canal oficial acessível. A situação específica da unidade consumidora não é pública neste canal e deve ser confirmada pelos canais da Enel quando necessário.",
       "error": null
     },
-    "collected_at": "2026-11-17T23:36:30.005452-03:00"
+    "collected_at": "2026-11-17T23:52:16.759709-03:00"
   },
   "notifications": {
     "group_operational_email": {
@@ -1714,7 +1712,7 @@
     "inmet_alerts": "active",
     "inmet_forecast": "ok",
     "inmet_weather": "unavailable",
-    "weather_reference": "ok",
+    "weather_reference": "source_unconfirmed",
     "weather_map": "ok",
     "radar": "ok",
     "pluviometers": "ok",
